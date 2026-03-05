@@ -1,13 +1,9 @@
-# VRP Optimizer Pro v4
+# Dépendances pour VRP Optimizer Pro v4
 # Installation: pip install -r requirements.txt
 
 # Framework web
 Flask>=2.3.0
 flask-cors>=4.0.0
-Werkzeug>=2.3.0
-
-# Serveur production (obligatoire sur Render)
-gunicorn>=21.2.0
 
 # Manipulation de données
 pandas>=1.5.0
@@ -22,5 +18,8 @@ ortools>=9.5.0
 requests>=2.31.0
 urllib3>=2.0.0
 
-# Support LLM local (Ollama)
-ollama>=0.1.7
+# Sécurité
+Werkzeug>=2.3.0
+
+# Support .env pour cles API
+python-dotenv>=1.0.0

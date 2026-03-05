@@ -23,12 +23,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);
     radial-gradient(circle at 80% 20%, rgba(59,130,246,0.08) 0%, transparent 50%);
 }
 
-/* ── LAYOUT DASHBOARD ── */
+/*  LAYOUT DASHBOARD  */
 .dashboard{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
 .sidebar{background:var(--card);border-right:1px solid var(--brd);padding:1.5rem}
 .main-content{padding:2rem;overflow-y:auto;height:100vh}
 
-/* ── HEADER ── */
+/*  HEADER  */
 .header{margin-bottom:2rem}
 .logo{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
 .logo-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--p),var(--s));
@@ -36,7 +36,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);
 .logo-text h1{font-size:1.5rem;font-weight:800;letter-spacing:-1px}
 .logo-text p{font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace}
 
-/* ── NAVIGATION ── */
+/*  NAVIGATION  */
 .nav{display:flex;flex-direction:column;gap:0.5rem}
 .nav-item{
   padding:1rem 1.2rem;background:transparent;border:none;color:var(--muted);
@@ -48,12 +48,12 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);
 .nav-item.active{background:var(--p);color:#fff;box-shadow:0 4px 15px rgba(255,107,53,0.3)}
 .nav-item i{width:20px;text-align:center}
 
-/* ── CONTENT SECTIONS ── */
+/*  CONTENT SECTIONS  */
 .section{display:none}
 .section.active{display:block;animation:fadein .3s}
 @keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
 
-/* ── CARDS ── */
+/*  CARDS  */
 .card{background:var(--card);border:1px solid var(--brd);border-radius:16px;
   padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
 .card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
@@ -62,7 +62,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);
 .card-title{font-size:1.2rem;font-weight:700;display:flex;align-items:center;gap:0.8rem}
 .card-icon{font-size:1.3rem}
 
-/* ── STEPS ── */
+/*  STEPS  */
 .steps{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding:1rem;background:var(--card);
   border-radius:12px;border:1px solid var(--brd)}
 .step{flex:1;display:flex;align-items:center;gap:0.8rem;padding:0.8rem;
@@ -77,7 +77,7 @@ body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);
 .step-text{font-size:0.85rem;color:var(--muted)}
 .step.active .step-text{color:var(--fg)}
 
-/* ── FORM ── */
+/*  FORM  */
 .form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
 .fg{display:flex;flex-direction:column;gap:0.5rem}
 label{font-weight:600;color:var(--muted);font-size:0.75rem;text-transform:uppercase;
@@ -92,7 +92,7 @@ input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);
 input[type=file]{cursor:pointer;font-family:'Outfit',sans-serif}
 .hint{font-size:0.7rem;color:var(--muted);font-family:'Space Mono',monospace}
 
-/* ── BUTTONS ── */
+/*  BUTTONS  */
 .btn-row{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap}
 button{
   padding:1rem 2rem;font-size:0.85rem;font-weight:700;border:none;
@@ -110,7 +110,7 @@ button{
 .btn-sm{padding:0.6rem 1.2rem;font-size:0.75rem}
 button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 
-/* ── STATS GRID ── */
+/*  STATS GRID  */
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
 .stat-card{background:var(--inp);border-radius:12px;padding:1.2rem;text-align:center;
   border:1px solid var(--brd);position:relative;overflow:hidden}
@@ -119,7 +119,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .stat-value{font-size:2rem;font-weight:800;color:var(--p);font-family:'Space Mono',monospace}
 .stat-label{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:0.3rem}
 
-/* ── VALIDATION REDESIGN ── */
+/*  VALIDATION REDESIGN  */
 .val-banner{border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;
   gap:1rem;margin-bottom:1.5rem;animation:fadein .3s}
 .val-banner.ok{background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3)}
@@ -196,7 +196,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .val-empty-icon{font-size:2.8rem;margin-bottom:.8rem}
 .val-empty-txt{font-size:.88rem}
 
-/* ── TOURS LIST ── */
+/*  TOURS LIST  */
 .tour-card{background:var(--inp);border-radius:12px;padding:1.2rem;margin-bottom:1rem;
   border:1px solid var(--brd);position:relative;overflow:hidden}
 .tour-card::before{content:'';position:absolute;left:0;top:0;width:4px;height:100%;
@@ -216,7 +216,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .stop-site{font-weight:600;font-size:0.9rem}
 .stop-addr{font-size:0.75rem;color:var(--muted);font-family:'Space Mono',monospace}
 
-/* ── MAP ── */
+/*  MAP  */
 #map{height:500px;width:100%;border-radius:12px;border:1px solid var(--brd)}
 .map-controls{display:flex;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap}
 .filter-btn{padding:0.5rem 1rem;background:var(--inp);border:1px solid var(--brd);
@@ -225,7 +225,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .filter-btn:hover{border-color:var(--p);color:var(--fg)}
 .filter-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
 
-/* ── AI ANALYSIS ── */
+/*  AI ANALYSIS  */
 .ai-analysis{background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(147,51,234,0.1));
   border:1px solid rgba(59,130,246,0.3);border-radius:12px;padding:1.5rem}
 .ai-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem}
@@ -236,13 +236,13 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .ai-section{margin-bottom:1rem}
 .ai-section-title{font-weight:600;color:var(--fg);margin-bottom:0.5rem;
   display:flex;align-items:center;gap:0.5rem}
-.ai-section-title::before{content:'→';color:var(--p)}
+.ai-section-title::before{content:'';color:var(--p)}
 .ai-list{list-style:none;padding-left:0.5rem}
 .ai-list li{padding:0.3rem 0;padding-left:1.5rem;position:relative;
   font-size:0.85rem;color:var(--muted)}
-.ai-list li::before{content:'•';position:absolute;left:0;color:var(--p)}
+.ai-list li::before{content:'';position:absolute;left:0;color:var(--p)}
 
-/* ── ALERTS ── */
+/*  ALERTS  */
 .alert{padding:1rem 1.2rem;margin-bottom:1rem;border-radius:10px;border:1px solid;
   display:flex;align-items:center;gap:0.8rem;font-size:0.9rem}
 .alert-ok{background:rgba(16,185,129,0.1);border-color:var(--ok);color:var(--ok)}
@@ -251,7 +251,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .alert-info{background:rgba(59,130,246,0.1);border-color:var(--info);color:var(--info)}
 .alert-icon{font-size:1.2rem}
 
-/* ── LOADING OVERLAY ── */
+/*  LOADING OVERLAY  */
 #overlay{position:fixed;inset:0;background:rgba(15,15,15,0.95);
   display:none;align-items:center;justify-content:center;z-index:9999}
 #overlay.show{display:flex}
@@ -272,7 +272,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   100%{transform:translateX(800%)}
 }
 
-/* ── COLUMN MAPPER ── */
+/*  COLUMN MAPPER  */
 .col-mapper-table{display:flex;flex-direction:column;gap:0.7rem}
 .col-mapper-row{display:grid;grid-template-columns:220px 1fr 28px;align-items:center;gap:1rem;
   padding:0.8rem 1rem;background:var(--inp);border-radius:10px;border:1px solid var(--brd);
@@ -311,7 +311,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .col-mapper-summary{display:flex;align-items:center;gap:1rem;font-size:0.82rem;
   padding:0.6rem 1rem;background:rgba(16,185,129,0.08);border:1px solid rgba(16,185,129,0.3);
   border-radius:8px;margin-bottom:1rem}
-/* ── AUTO-SPLIT ── */
+/*  AUTO-SPLIT  */
 .input-with-btn{display:flex;gap:0.5rem;align-items:stretch}
 .input-with-btn input{flex:1;min-width:0}
 .btn-auto{
@@ -337,14 +337,14 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 ::-webkit-scrollbar-thumb{background:var(--brd);border-radius:4px}
 ::-webkit-scrollbar-thumb:hover{background:var(--p)}
 
-/* ── RESPONSIVE ── */
+/*  RESPONSIVE  */
 @media(max-width:1024px){
   .dashboard{grid-template-columns:1fr}
   .sidebar{display:none}
   .main-content{padding:1rem}
 }
 
-/* ── EDIT MODE ── */
+/*  EDIT MODE  */
 .edit-mode .tour-stop{cursor:grab;transition:all .2s}
 .edit-mode .tour-stop:hover{background:rgba(255,107,53,0.15);border-color:var(--p)}
 .tour-stop.dragging{opacity:.5;cursor:grabbing}
@@ -357,7 +357,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   font-family:'Space Mono',monospace}
 .badge-edited{background:rgba(245,158,11,0.2);color:var(--warn);border:1px solid rgba(245,158,11,0.4)}
 
-/* ── TIME BAR ── */
+/*  TIME BAR  */
 .time-bar-wrap{margin-top:0.8rem;padding:0.8rem;background:rgba(0,0,0,0.2);border-radius:8px}
 .time-bar-label{font-size:0.7rem;color:var(--muted);margin-bottom:0.4rem;display:flex;justify-content:space-between}
 .time-bar{height:8px;border-radius:4px;background:var(--brd);overflow:hidden;display:flex}
@@ -369,7 +369,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .legend-travel::before{background:var(--info)}
 .legend-visit::before{background:var(--warn)}
 
-/* ── MOVE STOP MODAL ── */
+/*  MOVE STOP MODAL  */
 #move-modal{position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:9000;
   display:none;align-items:center;justify-content:center}
 #move-modal.show{display:flex}
@@ -381,7 +381,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   border:1px solid var(--brd);transition:all .2s;font-size:0.85rem}
 .tour-select-item:hover{border-color:var(--p);background:rgba(255,107,53,0.1)}
 
-/* ── GANTT PLANNING ── */
+/*  GANTT PLANNING  */
 .gantt-wrap{overflow-x:auto}
 .gantt-months-bar{display:flex;margin-left:160px;padding-bottom:6px;border-bottom:1px solid var(--brd);margin-bottom:2px;position:relative;height:28px}
 .gantt-row{display:flex;align-items:center;border-bottom:1px solid rgba(255,255,255,0.04);min-height:56px;cursor:pointer;transition:background .15s}
@@ -403,7 +403,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .gantt-legend-dot{width:13px;height:13px;border-radius:3px;flex-shrink:0}
 .gantt-proposed-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border-radius:4px;padding:2px 7px;font-size:0.7rem;color:var(--fg);margin-left:6px;border:1px solid rgba(255,255,255,.12)}
 
-/* ── AI SECTIONS ── */
+/*  AI SECTIONS  */
 .ai-section-block{margin-bottom:1.5rem;padding:1.2rem;background:rgba(0,0,0,0.2);
   border-radius:10px;border-left:3px solid var(--p)}
 .ai-section-block h3{font-size:0.9rem;font-weight:700;color:var(--fg);margin-bottom:0.8rem;
@@ -421,7 +421,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="logo">
-      <div class="logo-icon">🚚</div>
+      <div class="logo-icon"></div>
       <div class="logo-text">
         <h1>VRP Optimizer</h1>
         <p>Pro Edition v4</p>
@@ -439,7 +439,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         <i class="fas fa-cogs"></i> Optimisation
       </button>
       <button class="nav-item" onclick="showSection('results')">
-        <i class="fas fa-chart-line"></i> Résultats
+        <i class="fas fa-chart-line"></i> Rsultats
       </button>
       <button class="nav-item" onclick="showSection('map')">
         <i class="fas fa-map"></i> Carte
@@ -453,10 +453,10 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     </nav>
     
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--brd)">
-      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem">Ollama Status</div>
-      <div id="ollama-status" class="stat-status" style="padding:0.5rem;background:var(--inp);
+      <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem">Groq AI Status</div>
+      <div id="groq-status" class="stat-status" style="padding:0.5rem;background:var(--inp);
         border-radius:8px;font-size:0.8rem;font-family:'Space Mono',monospace">
-        <i class="fas fa-circle-notch fa-spin"></i> Vérification...
+        <i class="fas fa-circle-notch fa-spin"></i> Vrification...
       </div>
     </div>
   </div>
@@ -479,15 +479,15 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
       </div>
       <div class="step" id="step-4">
         <div class="step-num">4</div>
-        <div class="step-text">Résultats</div>
+        <div class="step-text">Rsultats</div>
       </div>
     </div>
 
     <!-- UPLOAD SECTION -->
     <div id="section-upload" class="section active">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Import de données</h2>
-        <p style="color:var(--muted)">Chargez votre fichier Excel — le mappage des colonnes s'adapte automatiquement</p>
+        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Import de donnes</h2>
+        <p style="color:var(--muted)">Chargez votre fichier Excel  le mappage des colonnes s'adapte automatiquement</p>
       </div>
 
       <!-- Carte 1 : fichier + config -->
@@ -499,24 +499,24 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
           <div class="fg" style="grid-column:span 2">
             <label>Fichier Excel (.xlsx, .xls)</label>
             <input type="file" id="upload-file" accept=".xlsx,.xls" onchange="onFileSelected()">
-            <span class="hint">Tout format de colonnes accepté — mappage automatique + sélection manuelle disponible</span>
+            <span class="hint">Tout format de colonnes accept  mappage automatique + slection manuelle disponible</span>
           </div>
           <div class="fg">
-            <label>Nom du dépôt</label>
+            <label>Nom du dpt</label>
             <input type="text" id="upload-depot" value="depot_ST_FOY" required>
           </div>
           <div class="fg">
             <label>Mode transport</label>
             <select id="upload-profil">
               <option value="driving">Voiture</option>
-              <option value="cycling">Vélo</option>
-              <option value="foot">Piéton</option>
+              <option value="cycling">Vlo</option>
+              <option value="foot">Piton</option>
             </select>
           </div>
         </div>
       </div>
 
-      <!-- Carte 2 : mappage des colonnes (affichée après sélection du fichier) -->
+      <!-- Carte 2 : mappage des colonnes (affiche aprs slection du fichier) -->
       <div class="card" id="col-mapper-card" style="display:none">
         <div class="card-header">
           <div class="card-title"><i class="fas fa-table card-icon"></i> Mappage des colonnes</div>
@@ -526,25 +526,25 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         <!-- spinner d'analyse -->
         <div id="col-mapper-loading" style="text-align:center;padding:2rem 1rem">
           <div class="spinner" style="width:36px;height:36px;margin:0 auto 1rem"></div>
-          <div style="color:var(--muted);font-size:0.85rem;font-family:'Space Mono',monospace">Analyse du fichier en cours…</div>
+          <div style="color:var(--muted);font-size:0.85rem;font-family:'Space Mono',monospace">Analyse du fichier en cours</div>
         </div>
 
         <!-- contenu mapper -->
         <div id="col-mapper-content" style="display:none">
           <p style="font-size:0.83rem;color:var(--muted);margin-bottom:1.2rem;line-height:1.5">
-            Associez chaque champ requis à la colonne de votre fichier.
-            Les suggestions sont auto-détectées — vous pouvez les ajuster manuellement.
+            Associez chaque champ requis  la colonne de votre fichier.
+            Les suggestions sont auto-dtectes  vous pouvez les ajuster manuellement.
             Les champs <span style="color:var(--err);font-weight:700">*</span> sont obligatoires.
           </p>
 
           <div class="col-mapper-table" id="col-mapper-rows"></div>
 
-          <!-- Aperçu des données -->
+          <!-- Aperu des donnes -->
           <div style="margin-top:1.6rem">
             <div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;
               margin-bottom:0.6rem;font-family:'Space Mono',monospace">
-              Aperçu — 5 premières lignes
-              <span style="margin-left:0.5rem;color:var(--p)">• colonnes mappées surlignées</span>
+              Aperu  5 premires lignes
+              <span style="margin-left:0.5rem;color:var(--p)"> colonnes mappes surlignes</span>
             </div>
             <div class="col-preview-wrap" id="col-preview-table"></div>
           </div>
@@ -554,17 +554,17 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
               <i class="fas fa-check"></i> Confirmer le mappage
             </button>
             <button class="btn-secondary" onclick="resetMappingToAuto()">
-              <i class="fas fa-magic"></i> Réinitialiser (auto)
+              <i class="fas fa-magic"></i> Rinitialiser (auto)
             </button>
           </div>
         </div>
 
-        <!-- résumé après confirmation -->
+        <!-- rsum aprs confirmation -->
         <div id="col-mapper-confirmed" style="display:none">
           <div class="col-mapper-summary">
             <i class="fas fa-check-circle" style="color:var(--ok);font-size:1.1rem"></i>
-            <span style="color:var(--ok);font-weight:700">Mappage confirmé</span>
-            <span style="color:var(--muted)">—</span>
+            <span style="color:var(--ok);font-weight:700">Mappage confirm</span>
+            <span style="color:var(--muted)"></span>
             <span id="col-confirmed-count" style="color:var(--muted)"></span>
           </div>
           <div class="col-confirmed-grid" id="col-confirmed-summary"></div>
@@ -577,7 +577,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
       <!-- Bouton principal -->
       <div class="btn-row">
         <button class="btn-primary" id="btn-geocode" onclick="startUpload()" disabled>
-          <i class="fas fa-arrow-right"></i> Valider et géocoder
+          <i class="fas fa-arrow-right"></i> Valider et gocoder
         </button>
       </div>
 
@@ -587,11 +587,11 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- VALIDATION SECTION -->
     <div id="section-validate" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Vérification des adresses</h2>
-        <p style="color:var(--muted)">Résultats du géocodage — corrigez les adresses non reconnues avant de continuer</p>
+        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Vrification des adresses</h2>
+        <p style="color:var(--muted)">Rsultats du gocodage  corrigez les adresses non reconnues avant de continuer</p>
       </div>
 
-      <!-- Bannière de statut global -->
+      <!-- Bannire de statut global -->
       <div id="val-banner"></div>
 
       <!-- Stats 4 colonnes -->
@@ -617,38 +617,38 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- OPTIMIZE SECTION -->
     <div id="section-optimize" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Paramètres d'optimisation</h2>
-        <p style="color:var(--muted)">Configurez les paramètres pour l'optimisation des tournées</p>
+        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Paramtres d'optimisation</h2>
+        <p style="color:var(--muted)">Configurez les paramtres pour l'optimisation des tournes</p>
       </div>
       
       <div class="card">
         <div class="card-header">
-          <div class="card-title"><i class="fas fa-sliders-h card-icon"></i> Paramètres VRP</div>
+          <div class="card-title"><i class="fas fa-sliders-h card-icon"></i> Paramtres VRP</div>
         </div>
         
                 <div class="form-grid">
           <div class="fg">
-            <label>🕐 Durée MAX par tournée (heures)</label>
+            <label> Dure MAX par tourne (heures)</label>
             <input type="number" id="opt-maxh" value="7.0" min="0.5" max="24" step="0.5">
             <span class="hint">Contrainte principale: trajet + temps de visite</span>
           </div>
           <div class="fg">
-            <label>⏱️ Temps de calcul (secondes)</label>
+            <label> Temps de calcul (secondes)</label>
             <input type="number" id="opt-time" value="45" min="5" max="300">
           </div>
           <div class="fg">
-            <label>✂️ Découpage tournées trop longues</label>
+            <label> Dcoupage tournes trop longues</label>
             <div class="input-with-btn">
               <input type="number" id="opt-split" value="3" min="2" max="30">
-              <button class="btn-auto" id="btn-auto-split" onclick="toggleAutoSplit()" title="Remplissage automatique des tournées selon le temps disponible">
+              <button class="btn-auto" id="btn-auto-split" onclick="toggleAutoSplit()" title="Remplissage automatique des tournes selon le temps disponible">
                 <i class="fas fa-magic" id="auto-split-icon"></i> Auto
               </button>
             </div>
-            <span class="hint" id="split-hint">Manuel = taille fixe (min 2) · <span style="color:var(--info)">Auto = remplissage variable selon temps de trajet + durée de visite</span></span>
+            <span class="hint" id="split-hint">Manuel = taille fixe (min 2)  <span style="color:var(--info)">Auto = remplissage variable selon temps de trajet + dure de visite</span></span>
             <div class="auto-result" id="auto-split-result"></div>
           </div>
           <div class="fg">
-            <label>🤖 Utiliser l'IA</label>
+            <label> Utiliser l'IA</label>
             <select id="opt-useai">
               <option value="true">Oui - Analyse avec Gemma3:4b</option>
               <option value="false">Non - Optimisation classique</option>
@@ -661,8 +661,8 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
             <i class="fas fa-info-circle" style="color:var(--info)"></i> <strong>Nouveau mode de planification</strong>
           </div>
           <div style="font-size:0.8rem;color:var(--muted)">
-            La planification se fait maintenant selon le <strong>TEMPS TOTAL</strong> (trajet + temps de visite par site) plutôt que le nombre de sites.<br>
-            Chaque site du fichier Excel peut avoir un temps de visite personnalisé via la colonne <code>temps_site</code> (en minutes, défaut: 30 min).
+            La planification se fait maintenant selon le <strong>TEMPS TOTAL</strong> (trajet + temps de visite par site) plutt que le nombre de sites.<br>
+            Chaque site du fichier Excel peut avoir un temps de visite personnalis via la colonne <code>temps_site</code> (en minutes, dfaut: 30 min).
           </div>
         </div>
         
@@ -677,8 +677,8 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- RESULTS SECTION -->
     <div id="section-results" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Résultats d'optimisation</h2>
-        <p style="color:var(--muted)">Statistiques et détails des tournées optimisées</p>
+        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Rsultats d'optimisation</h2>
+        <p style="color:var(--muted)">Statistiques et dtails des tournes optimises</p>
       </div>
       
       <div id="results-alerts"></div>
@@ -687,10 +687,10 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
       
       <div class="card">
         <div class="card-header">
-          <div class="card-title"><i class="fas fa-route card-icon"></i> Détail des tournées</div>
+          <div class="card-title"><i class="fas fa-route card-icon"></i> Dtail des tournes</div>
           <div style="display:flex;gap:0.8rem;align-items:center">
-            <button class="btn-sm btn-secondary" id="edit-btn" onclick="toggleEditMode()" title="Mode édition manuelle">
-              <i class="fas fa-edit"></i> Éditer
+            <button class="btn-sm btn-secondary" id="edit-btn" onclick="toggleEditMode()" title="Mode dition manuelle">
+              <i class="fas fa-edit"></i> diter
             </button>
             <button class="btn-sm btn-success" onclick="downloadExcel()">
               <i class="fas fa-download"></i> Excel
@@ -700,7 +700,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         
         <div class="edit-toolbar" id="edit-toolbar">
           <i class="fas fa-hand-pointer" style="color:var(--p)"></i>
-          <span style="font-size:0.85rem"><strong>Mode édition actif</strong> — Cliquez sur un stop pour le déplacer entre tournées</span>
+          <span style="font-size:0.85rem"><strong>Mode dition actif</strong>  Cliquez sur un stop pour le dplacer entre tournes</span>
           <button class="btn-sm btn-primary" onclick="recalculateAll()" id="recalc-btn" style="display:none">
             <i class="fas fa-sync"></i> Recalculer
           </button>
@@ -716,7 +716,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         <div class="card-header">
           <div class="card-title">
             <i class="fas fa-calendar-alt card-icon" style="color:var(--info)"></i> 
-            Groupes de dates identifiés
+            Groupes de dates identifis
           </div>
         </div>
         <div id="date-groups-list"></div>
@@ -738,7 +738,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <div id="section-map" class="section">
       <div class="header">
         <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Carte interactive</h2>
-        <p style="color:var(--muted)">Visualisez les tournées optimisées sur la carte</p>
+        <p style="color:var(--muted)">Visualisez les tournes optimises sur la carte</p>
       </div>
       
       <div class="map-controls">
@@ -754,7 +754,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <div id="section-planning" class="section">
       <div class="header">
         <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Planning annuel</h2>
-        <p style="color:var(--muted)">Visualisation Gantt des tournées — dates calculées à partir des fenêtres de vos sites</p>
+        <p style="color:var(--muted)">Visualisation Gantt des tournes  dates calcules  partir des fentres de vos sites</p>
       </div>
 
       <div class="card">
@@ -763,13 +763,13 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
           <div id="gantt-date-range" style="font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace"></div>
         </div>
 
-        <!-- Légende couleurs -->
+        <!-- Lgende couleurs -->
         <div id="gantt-legend" class="gantt-legend"></div>
 
         <!-- Explication barre -->
         <div style="display:flex;align-items:center;gap:1.5rem;margin-bottom:1.2rem;flex-wrap:wrap;font-size:0.75rem;color:var(--muted)">
-          <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:28px;height:10px;border-radius:3px;background:var(--p);opacity:.8"></span> Fenêtre disponible (date_min → date_max)</span>
-          <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:3px;height:14px;border-radius:2px;background:#fff;opacity:.9"></span> Date proposée (1er jour ouvré)</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:28px;height:10px;border-radius:3px;background:var(--p);opacity:.8"></span> Fentre disponible (date_min  date_max)</span>
+          <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:3px;height:14px;border-radius:2px;background:#fff;opacity:.9"></span> Date propose (1er jour ouvr)</span>
           <span style="display:flex;align-items:center;gap:5px"><span style="display:inline-block;width:3px;height:14px;border-radius:2px;background:var(--p)"></span> Aujourd'hui</span>
         </div>
 
@@ -779,7 +779,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 
         <div id="gantt-empty" style="text-align:center;padding:3rem;color:var(--muted);display:none">
           <i class="fas fa-calendar-times" style="font-size:3rem;margin-bottom:1rem;display:block"></i>
-          <p>Aucune tournée avec dates disponible.<br>
+          <p>Aucune tourne avec dates disponible.<br>
           Ajoutez les colonnes <code style="background:var(--inp);padding:2px 6px;border-radius:4px">date_min</code> et <code style="background:var(--inp);padding:2px 6px;border-radius:4px">date_max</code> dans votre fichier Excel.</p>
         </div>
       </div>
@@ -796,7 +796,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         <div class="card">
           <div style="text-align:center;padding:3rem;color:var(--muted)">
             <i class="fas fa-brain" style="font-size:3rem;margin-bottom:1rem"></i>
-            <p>Lancez une optimisation avec l'IA activée pour voir l'analyse ici</p>
+            <p>Lancez une optimisation avec l'IA active pour voir l'analyse ici</p>
           </div>
         </div>
       </div>
@@ -809,10 +809,10 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   <div class="move-modal-box">
     <div class="move-modal-title">
       <i class="fas fa-arrows-alt" style="color:var(--p)"></i>
-      Déplacer <span id="move-stop-name" style="color:var(--p)"></span>
+      Dplacer <span id="move-stop-name" style="color:var(--p)"></span>
     </div>
     <div style="font-size:0.8rem;color:var(--muted);margin-bottom:1rem">
-      Choisissez la tournée de destination :
+      Choisissez la tourne de destination :
     </div>
     <div class="tour-select-list" id="move-tour-list"></div>
     <div style="margin-top:1.2rem">
@@ -837,7 +837,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// ── CONFIGURATION ──────────────────────────────────────────
+//  CONFIGURATION 
 const COLORS = [
   '#ff6b35','#3b82f6','#10b981','#f59e0b','#8b5cf6',
   '#ec4899','#06b6d4','#84cc16','#f97316','#a78bfa',
@@ -854,7 +854,7 @@ let splitMode = 'manual'; // 'manual' (taille fixe) | 'auto' (taille variable)
 let pendingMove = null; // {fromTour, fromIdx, stopName}
 let _progressSource = null; // EventSource en cours
 
-// ── SSE PROGRESS ──────────────────────────────────────────
+//  SSE PROGRESS 
 function _genProgressId() {
   return Math.random().toString(36).slice(2) + Date.now().toString(36);
 }
@@ -862,7 +862,7 @@ function _genProgressId() {
 function openProgressStream(pid) {
   closeProgressStream();
   const fill = document.getElementById('overlay-progress');
-  fill.classList.add('indeterminate');   // animation "scanning" pendant l'attente du 1er événement
+  fill.classList.add('indeterminate');   // animation "scanning" pendant l'attente du 1er vnement
   _progressSource = new EventSource(`/api/progress/${pid}`);
   _progressSource.onmessage = (e) => {
     const d = JSON.parse(e.data);
@@ -879,17 +879,17 @@ function closeProgressStream() {
   document.getElementById('overlay-progress').classList.remove('indeterminate');
 }
 
-// ── INITIALIZATION ──────────────────────────────────────────
+//  INITIALIZATION 
 document.addEventListener('DOMContentLoaded', () => {
-  testOllama();
-  // Quand max_tour_hours change et que auto est actif, mettre à jour l'affichage
+  testGroq();
+  // Quand max_tour_hours change et que auto est actif, mettre  jour l'affichage
   ['opt-maxh', 'upload-profil'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.addEventListener('change', () => {
       if (splitMode === 'auto') {
         const maxH = parseFloat(document.getElementById('opt-maxh').value) || 7.0;
         const r = document.getElementById('auto-split-result');
-        if (r) r.innerHTML = `<strong>✅ Mode auto activé</strong> — chaque tournée sera remplie au maximum selon le temps disponible (${maxH}h).<br><span style="color:var(--muted)">Le nombre de sites par tournée variera en fonction du temps de trajet + durée de visite de chaque site.</span>`;
+        if (r) r.innerHTML = `<strong> Mode auto activ</strong>  chaque tourne sera remplie au maximum selon le temps disponible (${maxH}h).<br><span style="color:var(--muted)">Le nombre de sites par tourne variera en fonction du temps de trajet + dure de visite de chaque site.</span>`;
       }
     });
   });
@@ -914,10 +914,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-async function testOllama() {
-  const statusEl = document.getElementById('ollama-status');
+async function testGroq() {
+  const statusEl = document.getElementById('groq-status');
   try {
-    const resp = await fetch('/api/test-ollama');
+    const resp = await fetch('/api/test-groq');
     const data = await resp.json();
     if (data.success) {
       statusEl.innerHTML = `<i class="fas fa-check-circle" style="color:var(--ok)"></i> ${data.model} OK`;
@@ -925,11 +925,11 @@ async function testOllama() {
       statusEl.innerHTML = `<i class="fas fa-exclamation-circle" style="color:var(--warn)"></i> ${data.message}`;
     }
   } catch (e) {
-    statusEl.innerHTML = `<i class="fas fa-times-circle" style="color:var(--err)"></i> Non connecté`;
+    statusEl.innerHTML = `<i class="fas fa-times-circle" style="color:var(--err)"></i> Non connect`;
   }
 }
 
-// ── NAVIGATION ───────────────────────────────────────────────
+//  NAVIGATION 
 function showSection(name) {
   document.querySelectorAll('.nav-item').forEach(b => b.classList.remove('active'));
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -953,7 +953,7 @@ function updateSteps(step) {
   }
 }
 
-// ── COLUMN MAPPER ────────────────────────────────────────────
+//  COLUMN MAPPER 
 let _colMapping    = null;   // {site: "Nom client", address: "Adresse", ...}
 let _colPreview    = [];     // first 5 rows
 let _colAvailable  = [];     // all column names in the file
@@ -1009,7 +1009,7 @@ function _buildMapperRows(data) {
     const isAuto    = !!suggested;
 
     const opts = [
-      `<option value="">— non disponible —</option>`,
+      `<option value=""> non disponible </option>`,
       ...data.columns.map(c =>
         `<option value="${_esc(c)}" ${c === suggested ? 'selected' : ''}>${_esc(c)}</option>`)
     ].join('');
@@ -1019,7 +1019,7 @@ function _buildMapperRows(data) {
       : `<span class="col-badge col-badge-opt">optionnel</span>`;
     const autoBadge = isAuto
       ? `<span class="col-badge col-badge-auto"><i class="fas fa-magic"></i> auto</span>`
-      : (meta.required ? `<span class="col-badge" style="background:rgba(245,158,11,.15);color:var(--warn)"><i class="fas fa-exclamation"></i> à définir</span>` : '');
+      : (meta.required ? `<span class="col-badge" style="background:rgba(245,158,11,.15);color:var(--warn)"><i class="fas fa-exclamation"></i>  dfinir</span>` : '');
 
     const rowClass = isAuto ? 'mapped' : (meta.required ? 'missing' : '');
 
@@ -1112,7 +1112,7 @@ function confirmMapping() {
   document.getElementById('col-mapper-content').style.display  = 'none';
   document.getElementById('col-mapper-confirmed').style.display = 'block';
 
-  // Chips résumé
+  // Chips rsum
   const chips = Object.entries(_colMapping).map(([field, col]) => {
     const label = _colFieldsMeta[field]?.label || field;
     const isAuto = _colAutoSugg[field] === col;
@@ -1126,7 +1126,7 @@ function confirmMapping() {
   }).join('');
   document.getElementById('col-confirmed-summary').innerHTML = chips;
   document.getElementById('col-confirmed-count').textContent =
-    `${Object.keys(_colMapping).length} champ${Object.keys(_colMapping).length > 1 ? 's' : ''} mappé${Object.keys(_colMapping).length > 1 ? 's' : ''}`;
+    `${Object.keys(_colMapping).length} champ${Object.keys(_colMapping).length > 1 ? 's' : ''} mapp${Object.keys(_colMapping).length > 1 ? 's' : ''}`;
 
   document.getElementById('btn-geocode').disabled = false;
 }
@@ -1149,17 +1149,17 @@ function _esc(s) {
   return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 }
 
-// ── UPLOAD ───────────────────────────────────────────────────
+//  UPLOAD 
 async function startUpload() {
   const file = document.getElementById('upload-file').files[0];
-  if (!file) { showAlert('Sélectionnez un fichier Excel', 'err', 'upload-alerts'); return; }
+  if (!file) { showAlert('Slectionnez un fichier Excel', 'err', 'upload-alerts'); return; }
   if (!_colMapping) { showAlert('Confirmez d\'abord le mappage des colonnes', 'warn', 'upload-alerts'); return; }
 
   const depot  = document.getElementById('upload-depot').value.trim();
   const profil = document.getElementById('upload-profil').value;
   const pid    = _genProgressId();
 
-  showOverlay('Géocodage en cours...', 'Initialisation…');
+  showOverlay('Gocodage en cours...', 'Initialisation');
   openProgressStream(pid);
 
   const fd = new FormData();
@@ -1186,7 +1186,7 @@ async function startUpload() {
     updateSteps(2);
 
     hideOverlay();
-    showAlert('Géocodage terminé!', 'ok');
+    showAlert('Gocodage termin!', 'ok');
   } catch (e) {
     closeProgressStream();
     hideOverlay();
@@ -1194,7 +1194,7 @@ async function startUpload() {
   }
 }
 
-// ── VALIDATION ───────────────────────────────────────────────
+//  VALIDATION 
 let _valTab = 'fix'; // 'fix' | 'approx' | 'ok'
 
 function displayValidationResults(results) {
@@ -1213,21 +1213,21 @@ function _renderBanner(r) {
   const fix = r.manual_needed, warn = (r.warnings||[]).filter(w=>w.type==='fallback_geocode').length;
   if (fix > 0) {
     el.innerHTML = `<div class="val-banner err">
-      <div class="val-banner-icon">⛔</div>
-      <div><div class="val-banner-title" style="color:var(--err)">${fix} adresse${fix>1?'s':''} impossible${fix>1?'s':''} à géocoder automatiquement</div>
-      <div class="val-banner-sub">Corrigez chaque adresse ci-dessous (nouvelle adresse ou coordonnées GPS) pour débloquer l'optimisation.</div></div>
+      <div class="val-banner-icon"></div>
+      <div><div class="val-banner-title" style="color:var(--err)">${fix} adresse${fix>1?'s':''} impossible${fix>1?'s':''}  gocoder automatiquement</div>
+      <div class="val-banner-sub">Corrigez chaque adresse ci-dessous (nouvelle adresse ou coordonnes GPS) pour dbloquer l'optimisation.</div></div>
     </div>`;
   } else if (warn > 0) {
     el.innerHTML = `<div class="val-banner warn">
-      <div class="val-banner-icon">⚠️</div>
-      <div><div class="val-banner-title" style="color:var(--warn)">${warn} adresse${warn>1?'s':''} positionnée${warn>1?'s':''} approximativement</div>
-      <div class="val-banner-sub">Ces adresses ont été placées au centre de leur ville faute d'une adresse précise. Vous pouvez continuer ou les corriger pour plus de précision.</div></div>
+      <div class="val-banner-icon"></div>
+      <div><div class="val-banner-title" style="color:var(--warn)">${warn} adresse${warn>1?'s':''} positionne${warn>1?'s':''} approximativement</div>
+      <div class="val-banner-sub">Ces adresses ont t places au centre de leur ville faute d'une adresse prcise. Vous pouvez continuer ou les corriger pour plus de prcision.</div></div>
     </div>`;
   } else {
     el.innerHTML = `<div class="val-banner ok">
-      <div class="val-banner-icon">✅</div>
-      <div><div class="val-banner-title" style="color:var(--ok)">Toutes les adresses ont été géocodées avec succès</div>
-      <div class="val-banner-sub">Vous pouvez passer directement à l'étape d'optimisation.</div></div>
+      <div class="val-banner-icon"></div>
+      <div><div class="val-banner-title" style="color:var(--ok)">Toutes les adresses ont t gocodes avec succs</div>
+      <div class="val-banner-sub">Vous pouvez passer directement  l'tape d'optimisation.</div></div>
     </div>`;
   }
 }
@@ -1235,13 +1235,13 @@ function _renderBanner(r) {
 function _renderValStats(r) {
   const approxCt = (r.warnings||[]).filter(w=>w.type==='fallback_geocode').length;
   document.getElementById('val-stats-row').innerHTML = `
-    <div class="val-stat s-total"><div class="val-stat-icon">📋</div>
+    <div class="val-stat s-total"><div class="val-stat-icon"></div>
       <div><div class="val-stat-num">${r.total}</div><div class="val-stat-lbl">Sites au total</div></div></div>
-    <div class="val-stat s-ok"><div class="val-stat-icon">📍</div>
-      <div><div class="val-stat-num" style="color:var(--ok)">${r.geocoded}</div><div class="val-stat-lbl">Géocodés</div></div></div>
-    <div class="val-stat s-err"><div class="val-stat-icon">❌</div>
-      <div><div class="val-stat-num" style="color:${r.manual_needed>0?'var(--err)':'var(--muted)'}">${r.manual_needed}</div><div class="val-stat-lbl">À corriger</div></div></div>
-    <div class="val-stat s-warn"><div class="val-stat-icon">🎯</div>
+    <div class="val-stat s-ok"><div class="val-stat-icon"></div>
+      <div><div class="val-stat-num" style="color:var(--ok)">${r.geocoded}</div><div class="val-stat-lbl">Gocods</div></div></div>
+    <div class="val-stat s-err"><div class="val-stat-icon"></div>
+      <div><div class="val-stat-num" style="color:${r.manual_needed>0?'var(--err)':'var(--muted)'}">${r.manual_needed}</div><div class="val-stat-lbl"> corriger</div></div></div>
+    <div class="val-stat s-warn"><div class="val-stat-icon"></div>
       <div><div class="val-stat-num" style="color:${approxCt>0?'var(--warn)':'var(--muted)'}">${approxCt}</div><div class="val-stat-lbl">Approximatifs</div></div></div>`;
 }
 
@@ -1250,9 +1250,9 @@ function _renderValTabs(r) {
   const approxCt = (r.warnings||[]).filter(w=>w.type==='fallback_geocode').length;
   const okCt    = r.geocoded;
   document.getElementById('val-tabs').innerHTML = [
-    {id:'fix',   lbl:'À corriger',   ct:fixCt,   cls:fixCt>0?'c-err':'c-muted'},
+    {id:'fix',   lbl:' corriger',   ct:fixCt,   cls:fixCt>0?'c-err':'c-muted'},
     {id:'approx',lbl:'Approximatifs',ct:approxCt,cls:approxCt>0?'c-warn':'c-muted'},
-    {id:'ok',    lbl:'Validés',      ct:okCt,    cls:'c-ok'},
+    {id:'ok',    lbl:'Valids',      ct:okCt,    cls:'c-ok'},
   ].map(t=>`<button class="val-tab${_valTab===t.id?' active':''}" onclick="_switchTab('${t.id}',event)">
       ${t.lbl}<span class="val-tab-ct ${t.cls}">${t.ct}</span>
     </button>`).join('');
@@ -1269,21 +1269,21 @@ function _renderValContent(r) {
   const el = document.getElementById('val-tab-content');
   if (_valTab === 'fix') {
     if (!r.failed?.length) {
-      el.innerHTML = `<div class="val-empty"><div class="val-empty-icon">🎉</div><div class="val-empty-txt">Aucune adresse à corriger</div></div>`;
+      el.innerHTML = `<div class="val-empty"><div class="val-empty-icon"></div><div class="val-empty-txt">Aucune adresse  corriger</div></div>`;
     } else {
       el.innerHTML = r.failed.map(_fixCard).join('');
     }
   } else if (_valTab === 'approx') {
     const warns = (r.warnings||[]).filter(w=>w.type==='fallback_geocode');
     if (!warns.length) {
-      el.innerHTML = `<div class="val-empty"><div class="val-empty-icon">✅</div><div class="val-empty-txt">Aucune coordonnée approximative</div></div>`;
+      el.innerHTML = `<div class="val-empty"><div class="val-empty-icon"></div><div class="val-empty-txt">Aucune coordonne approximative</div></div>`;
     } else {
       el.innerHTML = warns.map(_approxCard).join('');
     }
   } else {
     const items = r.success || [];
     if (!items.length) {
-      el.innerHTML = `<div class="val-empty"><div class="val-empty-txt">Aucun site validé</div></div>`;
+      el.innerHTML = `<div class="val-empty"><div class="val-empty-txt">Aucun site valid</div></div>`;
     } else {
       el.innerHTML = `<div class="val-ok-grid">${items.map(_okChip).join('')}</div>`;
     }
@@ -1298,14 +1298,14 @@ function _fixCard(item) {
     <div class="val-item-head">
       <div>
         <div class="val-item-name">${_v(item.site||'Sans nom')}</div>
-        <div class="val-item-addr">${_v((item.address||'')+(item.ville?' — '+item.ville:''))}</div>
+        <div class="val-item-addr">${_v((item.address||'')+(item.ville?'  '+item.ville:''))}</div>
       </div>
-      <span class="val-item-tag t-err"><i class="fas fa-times-circle"></i> Non géocodé</span>
+      <span class="val-item-tag t-err"><i class="fas fa-times-circle"></i> Non gocod</span>
     </div>
     ${errs?`<div class="val-errors">${errs}</div>`:''}
     ${suggs?`<div style="margin-bottom:.6rem">${suggs}</div>`:''}
     <div class="val-fix-box">
-      <div class="val-fix-lbl">Nouvelle adresse complète</div>
+      <div class="val-fix-lbl">Nouvelle adresse complte</div>
       <div style="display:flex;gap:.5rem">
         <input type="text" class="fix-addr" data-idx="${idx}"
           placeholder="Ex: 12 Rue Victor Hugo, 31000 Toulouse"
@@ -1313,10 +1313,10 @@ function _fixCard(item) {
           style="flex:1;font-size:.84rem"
           onkeydown="if(event.key==='Enter')_fixGeocode(${idx})">
         <button class="btn-sm btn-primary" onclick="_fixGeocode(${idx})">
-          <i class="fas fa-search"></i> Géocoder
+          <i class="fas fa-search"></i> Gocoder
         </button>
       </div>
-      <div class="val-fix-divider">ou entrer les coordonnées GPS directement</div>
+      <div class="val-fix-divider">ou entrer les coordonnes GPS directement</div>
       <div style="display:grid;grid-template-columns:1fr 1fr auto;gap:.5rem">
         <input type="text" class="fix-lat" data-idx="${idx}" placeholder="Latitude  ex: 43.6047" style="font-size:.84rem">
         <input type="text" class="fix-lon" data-idx="${idx}" placeholder="Longitude ex: 1.4442"  style="font-size:.84rem">
@@ -1338,9 +1338,9 @@ function _approxCard(item) {
       <span class="val-item-tag t-warn"><i class="fas fa-map-marker-alt"></i> Approximatif</span>
     </div>
     <div style="font-size:.8rem;color:var(--warn);margin-bottom:.4rem">
-      <i class="fas fa-info-circle"></i> ${_v(item.message||'Coordonnées centroïde de la ville')}
+      <i class="fas fa-info-circle"></i> ${_v(item.message||'Coordonnes centrode de la ville')}
     </div>
-    ${item.normalized?`<div style="font-size:.73rem;color:var(--muted)">Adresse utilisée : <span style="font-family:'Space Mono',monospace">${_v(item.normalized)}</span></div>`:''}
+    ${item.normalized?`<div style="font-size:.73rem;color:var(--muted)">Adresse utilise : <span style="font-family:'Space Mono',monospace">${_v(item.normalized)}</span></div>`:''}
   </div>`;
 }
 
@@ -1352,7 +1352,7 @@ function _okChip(item) {
     <div class="val-ok-dot ${approx?'approx':'exact'}"></div>
     <div style="flex:1;min-width:0">
       <div class="val-ok-name">${_v(item.site||'Sans nom')}</div>
-      <div class="val-ok-meta">${lat&&lon?`${lat}, ${lon}`:'—'}${approx?' · approx':''}</div>
+      <div class="val-ok-meta">${lat&&lon?`${lat}, ${lon}`:''}${approx?'  approx':''}</div>
     </div>
     ${approx?'<i class="fas fa-exclamation-triangle" style="color:var(--warn);font-size:.7rem;flex-shrink:0"></i>':'<i class="fas fa-check-circle" style="color:var(--ok);font-size:.75rem;flex-shrink:0"></i>'}
   </div>`;
@@ -1363,7 +1363,7 @@ function _updateProceedBtn(r) {
   if (!btn) return;
   if (r.manual_needed > 0) {
     btn.disabled = true;
-    btn.innerHTML = `<i class="fas fa-lock"></i> ${r.manual_needed} adresse${r.manual_needed>1?'s':''} à corriger d'abord`;
+    btn.innerHTML = `<i class="fas fa-lock"></i> ${r.manual_needed} adresse${r.manual_needed>1?'s':''}  corriger d'abord`;
   } else {
     btn.disabled = false;
     btn.innerHTML = '<i class="fas fa-cogs"></i> Continuer vers l\'optimisation';
@@ -1384,10 +1384,10 @@ async function _fixGeocode(idx) {
     const data = await resp.json();
     if (data.success) {
       geocodeResults = data.geocode_results;
-      showAlert(`Adresse géocodée !`, 'ok', 'val-alerts');
+      showAlert(`Adresse gocode !`, 'ok', 'val-alerts');
       displayValidationResults(data.geocode_results);
     } else {
-      showAlert('Géocodage échoué : ' + data.error, 'err', 'val-alerts');
+      showAlert('Gocodage chou : ' + data.error, 'err', 'val-alerts');
       input.disabled = false;
     }
   } catch(e) { showAlert('Erreur : '+e.message,'err','val-alerts'); input.disabled=false; }
@@ -1397,7 +1397,7 @@ async function _fixCoords(idx) {
   const lat = document.querySelector(`.fix-lat[data-idx="${idx}"]`)?.value.trim();
   const lon = document.querySelector(`.fix-lon[data-idx="${idx}"]`)?.value.trim();
   if (!lat||!lon) { showAlert('Entrez latitude ET longitude','warn','val-alerts'); return; }
-  if (isNaN(+lat)||isNaN(+lon)) { showAlert('Coordonnées invalides (nombres décimaux attendus)','err','val-alerts'); return; }
+  if (isNaN(+lat)||isNaN(+lon)) { showAlert('Coordonnes invalides (nombres dcimaux attendus)','err','val-alerts'); return; }
   try {
     const resp = await fetch('/api/manual-geocode', {
       method:'POST', headers:{'Content-Type':'application/json'},
@@ -1406,7 +1406,7 @@ async function _fixCoords(idx) {
     const data = await resp.json();
     if (data.success) {
       geocodeResults = data.geocode_results;
-      showAlert('Coordonnées appliquées !','ok','val-alerts');
+      showAlert('Coordonnes appliques !','ok','val-alerts');
       displayValidationResults(data.geocode_results);
     } else { showAlert('Erreur : '+data.error,'err','val-alerts'); }
   } catch(e) { showAlert('Erreur : '+e.message,'err','val-alerts'); }
@@ -1418,8 +1418,8 @@ function filterValidation(){}
 function manualGeocode(){}
 function manualCoords(){}
 
-// ── OPTIMIZATION ─────────────────────────────────────────────
-// ── AUTO SPLIT ───────────────────────────────────────────────
+//  OPTIMIZATION 
+//  AUTO SPLIT 
 function toggleAutoSplit() {
   const input    = document.getElementById('opt-split');
   const btn      = document.getElementById('btn-auto-split');
@@ -1437,12 +1437,12 @@ function toggleAutoSplit() {
     // Passer en mode auto
     splitMode = 'auto';
     input.disabled = true;
-    btn.innerHTML = '<i class="fas fa-check-circle" id="auto-split-icon"></i> Auto activé';
+    btn.innerHTML = '<i class="fas fa-check-circle" id="auto-split-icon"></i> Auto activ';
     btn.classList.add('active');
     resultEl.innerHTML = `
-      <strong>✅ Mode auto activé</strong> — chaque tournée sera remplie au maximum selon le temps disponible (${maxH}h).<br>
+      <strong> Mode auto activ</strong>  chaque tourne sera remplie au maximum selon le temps disponible (${maxH}h).<br>
       <span style="color:var(--muted)">
-        Le nombre de sites par tournée variera en fonction du temps de trajet + durée de visite de chaque site.
+        Le nombre de sites par tourne variera en fonction du temps de trajet + dure de visite de chaque site.
       </span>
     `;
     resultEl.classList.add('visible');
@@ -1450,15 +1450,15 @@ function toggleAutoSplit() {
 }
 
 async function proceedToOptimize() {
-  if (!geocodeResults) { showAlert("Aucune donnée de géocodage. Recommencez l'upload.", 'err'); return; }
+  if (!geocodeResults) { showAlert("Aucune donne de gocodage. Recommencez l'upload.", 'err'); return; }
   if (geocodeResults.manual_needed > 0) { showAlert('Corrigez d\'abord les ' + geocodeResults.manual_needed + ' adresses', 'warn'); return; }
   showSection('optimize');
   updateSteps(3);
 }
 
 async function runOptimization() {
-  if (!currentSessionId) { showAlert('Session expirée, recommencez l\'upload', 'err'); return; }
-  if (!geocodeResults) { showAlert("Aucune donnée de géocodage.", 'err'); return; }
+  if (!currentSessionId) { showAlert('Session expire, recommencez l\'upload', 'err'); return; }
+  if (!geocodeResults) { showAlert("Aucune donne de gocodage.", 'err'); return; }
   if (geocodeResults.manual_needed > 0) { showAlert('Corrigez d\'abord les adresses', 'warn'); showSection('validate'); return; }
   
   const pid = _genProgressId();
@@ -1475,7 +1475,7 @@ async function runOptimization() {
     use_ai:         document.getElementById('opt-useai').value === 'true'
   };
 
-  showOverlay('Optimisation en cours...', 'Initialisation…');
+  showOverlay('Optimisation en cours...', 'Initialisation');
   openProgressStream(pid);
 
   try {
@@ -1500,7 +1500,7 @@ async function runOptimization() {
     displayAIAnalysis(data.ai_analysis);
     showSection('results');
     updateSteps(4);
-    showAlert('Optimisation terminée!', 'ok');
+    showAlert('Optimisation termine!', 'ok');
   } catch (e) {
     closeProgressStream();
     hideOverlay();
@@ -1508,7 +1508,7 @@ async function runOptimization() {
   }
 }
 
-// ── EDIT MODE ───────────────────────────────────────────────
+//  EDIT MODE 
 function toggleEditMode() {
   editMode = !editMode;
   const btn = document.getElementById('edit-btn');
@@ -1516,12 +1516,12 @@ function toggleEditMode() {
   const toursList = document.getElementById('tours-list');
   
   if (editMode) {
-    btn.innerHTML = '<i class="fas fa-edit" style="color:var(--warn)"></i> Édition ON';
+    btn.innerHTML = '<i class="fas fa-edit" style="color:var(--warn)"></i> dition ON';
     btn.classList.add('btn-secondary');
     toolbar.classList.add('visible');
     toursList.classList.add('edit-mode');
   } else {
-    btn.innerHTML = '<i class="fas fa-edit"></i> Éditer';
+    btn.innerHTML = '<i class="fas fa-edit"></i> diter';
     toolbar.classList.remove('visible');
     toursList.classList.remove('edit-mode');
     pendingMove = null;
@@ -1533,7 +1533,7 @@ function toggleEditMode() {
 function selectStopForMove(tourNum, stopIdx, stopName) {
   if (!editMode) return;
   
-  // Si déjà sélectionné, désélectionner
+  // Si dj slectionn, dslectionner
   if (pendingMove && pendingMove.tourNum === tourNum && pendingMove.stopIdx === stopIdx) {
     pendingMove = null;
     renderToursList(editedTours);
@@ -1555,8 +1555,8 @@ function showMoveModal(fromTour, fromIdx, stopName) {
     return `
       <div class="tour-select-item" onclick="executeMove(${fromTour}, ${fromIdx}, ${t.tour_num})">
         <span style="color:${color};font-weight:700">T${t.tour_num}</span>
-        ${isSame ? '<span style="color:var(--muted);font-size:0.75rem"> (même tournée — réordonner)</span>' : ''}
-        <span style="color:var(--muted);font-size:0.75rem;float:right">${t.stops.length} arrêts</span>
+        ${isSame ? '<span style="color:var(--muted);font-size:0.75rem"> (mme tourne  rordonner)</span>' : ''}
+        <span style="color:var(--muted);font-size:0.75rem;float:right">${t.stops.length} arrts</span>
         <div style="font-size:0.75rem;color:var(--muted);margin-top:0.2rem">
           ${t.stops.slice(0,3).map(s => s.site).join(', ')}${t.stops.length > 3 ? '...' : ''}
         </div>
@@ -1607,14 +1607,14 @@ async function recalculateAll() {
   if (!editedTours) return;
   const profil = document.getElementById('upload-profil').value;
   
-  showOverlay('Recalcul en cours...', 'Mise à jour des temps et distances');
+  showOverlay('Recalcul en cours...', 'Mise  jour des temps et distances');
   updateProgress(10);
   
   const updated = [];
   for (let i = 0; i < editedTours.length; i++) {
     const tour = editedTours[i];
     updateProgress(10 + (i / editedTours.length) * 80);
-    updateOverlayStatus(`Tournée ${i+1}/${editedTours.length}...`);
+    updateOverlayStatus(`Tourne ${i+1}/${editedTours.length}...`);
     
     try {
       const resp = await fetch('/api/recalculate-tour', {
@@ -1635,11 +1635,11 @@ async function recalculateAll() {
   const totalH = updated.reduce((s, t) => s + (t.total_time_hours || 0), 0);
   const totalVisits = updated.reduce((s, t) => s + t.stops.length, 0);
   
-  // Mettre à jour les stats affichées
+  // Mettre  jour les stats affiches
   const statsEl = document.getElementById('results-stats');
   if (statsEl) {
     statsEl.innerHTML = `
-      <div class="stat-card"><div class="stat-value">${updated.length}</div><div class="stat-label">Tournées</div></div>
+      <div class="stat-card"><div class="stat-value">${updated.length}</div><div class="stat-label">Tournes</div></div>
       <div class="stat-card"><div class="stat-value">${totalVisits}</div><div class="stat-label">Visites</div></div>
       <div class="stat-card"><div class="stat-value">${totalKm.toFixed(1)}</div><div class="stat-label">km total</div></div>
       <div class="stat-card"><div class="stat-value">${totalH.toFixed(1)}</div><div class="stat-label">heures</div></div>
@@ -1649,7 +1649,7 @@ async function recalculateAll() {
   renderToursList(editedTours);
   renderGantt(editedTours);
 
-  // Mettre à jour la carte
+  // Mettre  jour la carte
   if (currentResult) {
     currentResult.tours = editedTours;
     if (map) drawMap(currentResult);
@@ -1658,14 +1658,14 @@ async function recalculateAll() {
   document.getElementById('recalc-btn').style.display = 'none';
   updateProgress(100);
   hideOverlay();
-  showAlert('Recalcul terminé!', 'ok');
+  showAlert('Recalcul termin!', 'ok');
 }
 
-// ── RESULTS ─────────────────────────────────────────────────
+//  RESULTS 
 function displayResults(data) {
   const statsEl = document.getElementById('results-stats');
   statsEl.innerHTML = `
-    <div class="stat-card"><div class="stat-value">${data.stats.total_tours}</div><div class="stat-label">Tournées</div></div>
+    <div class="stat-card"><div class="stat-value">${data.stats.total_tours}</div><div class="stat-label">Tournes</div></div>
     <div class="stat-card"><div class="stat-value">${data.stats.total_visits}</div><div class="stat-label">Visites</div></div>
     <div class="stat-card"><div class="stat-value">${data.stats.total_distance_km}</div><div class="stat-label">km total</div></div>
     <div class="stat-card"><div class="stat-value">${data.stats.total_time_hours}</div><div class="stat-label">heures</div></div>
@@ -1716,30 +1716,30 @@ function renderToursList(tours) {
         <div class="tour-card" style="--tour-color:${color}">
           <div class="tour-header">
             <div style="display:flex;align-items:center;gap:0.8rem">
-              <div class="tour-number">TOURNÉE #${tour.tour_num}</div>
-              ${isEdited ? '<span class="badge badge-edited">✏️ Modifié</span>' : ''}
+              <div class="tour-number">TOURNE #${tour.tour_num}</div>
+              ${isEdited ? '<span class="badge badge-edited"> Modifi</span>' : ''}
             </div>
             <div class="tour-meta">
-              <span><i class="fas fa-map-marker-alt"></i> ${tour.stops.length} arrêts</span>
+              <span><i class="fas fa-map-marker-alt"></i> ${tour.stops.length} arrts</span>
               <span><i class="fas fa-road"></i> ${tour.total_distance_km} km</span>
               <span><i class="fas fa-clock"></i> ${totalH} h</span>
               ${travelH ? `<span style="color:var(--info)"><i class="fas fa-car"></i> ${travelH}h trajet</span>` : ''}
               ${visitH ? `<span style="color:var(--warn)"><i class="fas fa-handshake"></i> ${visitH}h visite</span>` : ''}
             </div>
-            ${(tour.date_proposed && tour.date_proposed !== 'À définir') ? `
+            ${(tour.date_proposed && tour.date_proposed !== ' dfinir') ? `
             <div style="margin-top:0.5rem;display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap">
-              ${tour.date_proposed.startsWith('⚠️')
+              ${tour.date_proposed.startsWith('')
                 ? `<span style="color:var(--err);font-size:0.8rem;font-weight:600">${tour.date_proposed}</span>`
-                : `<span style="font-size:0.8rem;color:var(--ok);font-weight:600"><i class="fas fa-calendar-check"></i> Date proposée : ${tour.date_proposed}</span>`
+                : `<span style="font-size:0.8rem;color:var(--ok);font-weight:600"><i class="fas fa-calendar-check"></i> Date propose : ${tour.date_proposed}</span>`
               }
-              ${tour.date_min ? `<span style="font-size:0.75rem;color:var(--muted)">[ fenêtre : ${tour.date_min} → ${tour.date_max} ]</span>` : ''}
+              ${tour.date_min ? `<span style="font-size:0.75rem;color:var(--muted)">[ fentre : ${tour.date_min}  ${tour.date_max} ]</span>` : ''}
             </div>` : ''}
           </div>
           
           <!-- Barre de temps visuelle -->
           <div class="time-bar-wrap">
             <div class="time-bar-label">
-              <span>Répartition du temps</span>
+              <span>Rpartition du temps</span>
               <span>${totalH}h total</span>
             </div>
             <div class="time-bar">
@@ -1747,8 +1747,8 @@ function renderToursList(tours) {
               <div class="time-bar-visit" style="width:${visitPct}%"></div>
             </div>
             <div class="time-bar-legend">
-              <span class="legend-travel">Trajet (${travelH}h — ${travelPct}%)</span>
-              <span class="legend-visit">Visite (${visitH}h — ${visitPct}%)</span>
+              <span class="legend-travel">Trajet (${travelH}h  ${travelPct}%)</span>
+              <span class="legend-visit">Visite (${visitH}h  ${visitPct}%)</span>
             </div>
           </div>
           
@@ -1758,9 +1758,9 @@ function renderToursList(tours) {
                   style="${editMode ? 'cursor:pointer' : ''}">
                 <div class="stop-num">${si + 1}</div>
                 <div class="stop-info">
-                  <div class="stop-site">${stop.site}${stop.client ? ' — ' + stop.client : ''}</div>
-                  <div class="stop-addr">${stop.address}${stop.ville ? ' · ' + stop.ville : ''}</div>
-                  ${stop.date_min ? `<div style="font-size:0.7rem;color:var(--muted)">📅 ${stop.date_min} au ${stop.date_max}</div>` : ''}
+                  <div class="stop-site">${stop.site}${stop.client ? '  ' + stop.client : ''}</div>
+                  <div class="stop-addr">${stop.address}${stop.ville ? '  ' + stop.ville : ''}</div>
+                  ${stop.date_min ? `<div style="font-size:0.7rem;color:var(--muted)"> ${stop.date_min} au ${stop.date_max}</div>` : ''}
                 </div>
                 ${editMode ? `<div style="color:var(--muted);font-size:0.75rem;margin-left:auto"><i class="fas fa-arrows-alt"></i></div>` : ''}
               </li>
@@ -1770,11 +1770,11 @@ function renderToursList(tours) {
       `;
     }).join('');
   } else {
-    toursEl.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted)">Aucune tournée générée.</div>';
+    toursEl.innerHTML = '<div style="padding:2rem;text-align:center;color:var(--muted)">Aucune tourne gnre.</div>';
   }
 }
 
-// ── GANTT PLANNING ──────────────────────────────────────────
+//  GANTT PLANNING 
 function renderGantt(tours) {
   const container = document.getElementById('gantt-container');
   const emptyEl   = document.getElementById('gantt-empty');
@@ -1819,7 +1819,7 @@ function renderGantt(tours) {
   let cur = new Date(tMin);
   while (cur <= tMax) { months.push(new Date(cur)); cur = new Date(cur.getFullYear(), cur.getMonth() + 1, 1); }
 
-  rangeEl.textContent = `${tMin.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})} — ${tMax.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}`;
+  rangeEl.textContent = `${tMin.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}  ${tMax.toLocaleDateString('fr-FR',{month:'long',year:'numeric'})}`;
 
   // Ligne verticale "aujourd'hui"
   const todayInRange = today >= tMin && today <= tMax;
@@ -1829,21 +1829,21 @@ function renderGantt(tours) {
   // Grilles verticales (une par mois)
   const gridHtml = months.map(m => `<div class="gantt-grid-line" style="left:${pct(m)}%"></div>`).join('');
 
-  // En-tête des mois
+  // En-tte des mois
   const monthsHtml = `<div class="gantt-months-bar">${
     months.map(m => `<div style="position:absolute;left:${pct(m)}%;transform:translateX(-50%);
       font-size:0.68rem;font-family:'Space Mono',monospace;color:var(--muted);white-space:nowrap;top:4px">
       ${m.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'})}</div>`).join('')
   }</div>`;
 
-  // Légende
+  // Lgende
   legendEl.innerHTML = tours.map((t, i) => `
     <div class="gantt-legend-item">
       <div class="gantt-legend-dot" style="background:${COLORS[i%COLORS.length]}"></div>
-      <span>T${t.tour_num} — ${t.stops.length} arrêt${t.stops.length>1?'s':''}</span>
+      <span>T${t.tour_num}  ${t.stops.length} arrt${t.stops.length>1?'s':''}</span>
     </div>`).join('');
 
-  // Lignes de tournées
+  // Lignes de tournes
   const rowsHtml = tours.map((t, i) => {
     const color = COLORS[i % COLORS.length];
     const dMin  = parseGDate(t.date_min);
@@ -1851,26 +1851,26 @@ function renderGantt(tours) {
     const dProp = parseGDate(t.date_proposed);
     let trackContent = '';
 
-    if (t.date_proposed === '⚠️ Conflit de dates') {
-      trackContent = `<div class="gantt-conflict">⚠️ Conflit de dates — fenêtres incompatibles</div>`;
+    if (t.date_proposed === ' Conflit de dates') {
+      trackContent = `<div class="gantt-conflict"> Conflit de dates  fentres incompatibles</div>`;
     } else if (dMin && dMax) {
       const left  = pct(dMin);
       const width = Math.max(pct(dMax) - left, 0.4);
 
-      // Marqueur date proposée à l'intérieur de la barre
+      // Marqueur date propose  l'intrieur de la barre
       let propLine = '';
       if (dProp && dProp >= dMin && dProp <= dMax) {
         const propPct = (dProp - dMin) / (dMax - dMin) * 100;
         propLine = `<div class="gantt-proposed-line" style="left:${propPct}%"></div>`;
       }
 
-      const label = t.date_proposed && t.date_proposed !== 'À définir'
-        ? `📅 ${t.date_proposed}`
-        : `${t.date_min} → ${t.date_max}`;
+      const label = t.date_proposed && t.date_proposed !== ' dfinir'
+        ? ` ${t.date_proposed}`
+        : `${t.date_min}  ${t.date_max}`;
 
       trackContent = `
         <div class="gantt-bar" style="left:${left}%;width:${width}%"
-             title="Fenêtre : ${t.date_min} → ${t.date_max}${t.date_proposed && t.date_proposed!=='À définir' ? '\nDate proposée : '+t.date_proposed : ''}">
+             title="Fentre : ${t.date_min}  ${t.date_max}${t.date_proposed && t.date_proposed!==' dfinir' ? '\nDate propose : '+t.date_proposed : ''}">
           <div class="gantt-bar-inner" style="background:linear-gradient(135deg,${color}e0,${color}90)">
             ${propLine}
             <span class="gantt-bar-label">${label}</span>
@@ -1881,10 +1881,10 @@ function renderGantt(tours) {
     }
 
     return `
-      <div class="gantt-row" title="Cliquer pour voir la tournée" onclick="showSection('results');setTimeout(()=>document.querySelectorAll('.tour-card')[${i}]?.scrollIntoView({behavior:'smooth'}),200)">
+      <div class="gantt-row" title="Cliquer pour voir la tourne" onclick="showSection('results');setTimeout(()=>document.querySelectorAll('.tour-card')[${i}]?.scrollIntoView({behavior:'smooth'}),200)">
         <div class="gantt-row-label" style="color:${color}">
-          <span><i class="fas fa-route" style="opacity:.7;margin-right:4px"></i>Tournée #${t.tour_num}</span>
-          <small>${t.stops.length} arrêt${t.stops.length>1?'s':''} · ${t.total_distance_km} km · ${t.total_time_hours}h</small>
+          <span><i class="fas fa-route" style="opacity:.7;margin-right:4px"></i>Tourne #${t.tour_num}</span>
+          <small>${t.stops.length} arrt${t.stops.length>1?'s':''}  ${t.total_distance_km} km  ${t.total_time_hours}h</small>
         </div>
         <div class="gantt-track">
           ${gridHtml}
@@ -1897,7 +1897,7 @@ function renderGantt(tours) {
   container.innerHTML = monthsHtml + rowsHtml;
 }
 
-// ── AI ANALYSIS ─────────────────────────────────────────────
+//  AI ANALYSIS 
 function displayAIAnalysis(aiData) {
   const contentEl = document.getElementById('ai-content');
   
@@ -1932,11 +1932,11 @@ function displayAIAnalysis(aiData) {
           return '<hr style="border-color:var(--brd);margin:1rem 0">';
         }
         if (line.trim() === '') return '<br>';
-        // Colorier les icônes d'état
+        // Colorier les icnes d'tat
         let colored = line
-          .replace(/^(✅)/g, '<span style="color:var(--ok)">$1</span>')
-          .replace(/^(⚠️|⚡)/g, '<span style="color:var(--warn)">$1</span>')
-          .replace(/^(🌙|ℹ️)/g, '<span style="color:var(--info)">$1</span>')
+          .replace(/^()/g, '<span style="color:var(--ok)">$1</span>')
+          .replace(/^(|)/g, '<span style="color:var(--warn)">$1</span>')
+          .replace(/^(|)/g, '<span style="color:var(--info)">$1</span>')
           .replace(/^(R\d+\.)/g, '<strong style="color:var(--p)">$1</strong>');
         return `<div style="font-size:0.85rem;line-height:1.7;color:var(--muted);padding:0.1rem 0">${colored}</div>`;
       })
@@ -1952,11 +1952,11 @@ function displayAIAnalysis(aiData) {
         ${isFallback ? `
           <span style="background:rgba(245,158,11,0.15);color:var(--warn);border:1px solid rgba(245,158,11,0.4);
                 padding:0.3rem 0.8rem;border-radius:20px;font-size:0.75rem;font-weight:600">
-            <i class="fas fa-calculator"></i> Analyse automatique (Ollama indisponible)
+            <i class="fas fa-calculator"></i> Analyse automatique (Groq indisponible)
           </span>` : `
           <span style="background:rgba(59,130,246,0.15);color:var(--info);border:1px solid rgba(59,130,246,0.4);
                 padding:0.3rem 0.8rem;border-radius:20px;font-size:0.75rem;font-weight:600">
-            <i class="fas fa-robot"></i> Analyse IA (${(aiData.source || 'ollama').toUpperCase()})
+            <i class="fas fa-robot"></i> Analyse IA (${(aiData.source || 'groq').toUpperCase()})
           </span>`}
       </div>
       
@@ -1964,7 +1964,7 @@ function displayAIAnalysis(aiData) {
       <div class="ai-metrics-grid">
         <div class="ai-metric">
           <div class="ai-metric-val">${m.total_tours}</div>
-          <div class="ai-metric-lbl">Tournées</div>
+          <div class="ai-metric-lbl">Tournes</div>
         </div>
         <div class="ai-metric">
           <div class="ai-metric-val">${m.total_km}</div>
@@ -1972,7 +1972,7 @@ function displayAIAnalysis(aiData) {
         </div>
         <div class="ai-metric">
           <div class="ai-metric-val">${m.avg_h}</div>
-          <div class="ai-metric-lbl">h / tournée</div>
+          <div class="ai-metric-lbl">h / tourne</div>
         </div>
         <div class="ai-metric">
           <div class="ai-metric-val">${m.efficiency_kmh}</div>
@@ -1994,17 +1994,17 @@ function displayDateGroups(dateGroups) {
     <div class="geocode-item success">
       <div class="geocode-header"><span class="geocode-site">Groupe #${g.group_num}</span><span class="geocode-status success">${g.site_count} sites</span></div>
       <div class="geocode-addresses">
-        <div><span class="geocode-label">Période :</span><span class="geocode-value">${g.date_min || 'Non spécifiée'} à ${g.date_max || 'Non spécifiée'}</span></div>
+        <div><span class="geocode-label">Priode :</span><span class="geocode-value">${g.date_min || 'Non spcifie'}  ${g.date_max || 'Non spcifie'}</span></div>
       </div>
     </div>
   `).join('');
 }
 
-// ── MAP ───────────────────────────────────────────────────────
+//  MAP 
 function initMap() {
   map = L.map('map').setView([43.6047, 1.4442], 10);
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '© OpenStreetMap contributors', maxZoom: 19
+    attribution: ' OpenStreetMap contributors', maxZoom: 19
   }).addTo(map);
   markerLayer = L.layerGroup().addTo(map);
   routeLayer = L.layerGroup().addTo(map);
@@ -2021,7 +2021,7 @@ function drawMap(data) {
     html: `<div style="width:26px;height:26px;background:#ef4444;border-radius:50%;border:3px solid white;box-shadow:0 2px 8px rgba(0,0,0,.5)"></div>`,
     className: '', iconSize: [26,26], iconAnchor: [13,13]
   });
-  L.marker([depot.lat, depot.lon], {icon: depotIcon}).bindPopup(`<b>🏢 DÉPÔT</b><br>${depot.address}`).addTo(markerLayer);
+  L.marker([depot.lat, depot.lon], {icon: depotIcon}).bindPopup(`<b> DPT</b><br>${depot.address}`).addTo(markerLayer);
   bounds.push([depot.lat, depot.lon]);
   
   const toursToShow = editedTours || data.tours;
@@ -2030,7 +2030,7 @@ function drawMap(data) {
     const color = COLORS[ti % COLORS.length];
     if (tour.route_coords?.length > 1) {
       L.polyline(tour.route_coords, {color, weight: 4, opacity: 0.8})
-        .bindPopup(`<b>Tournée #${tour.tour_num}</b><br>${tour.total_distance_km} km — ${tour.total_time_hours} h`)
+        .bindPopup(`<b>Tourne #${tour.tour_num}</b><br>${tour.total_distance_km} km  ${tour.total_time_hours} h`)
         .addTo(routeLayer);
     }
     tour.stops.forEach((stop, si) => {
@@ -2039,7 +2039,7 @@ function drawMap(data) {
         className: '', iconSize: [30,30], iconAnchor: [15,15]
       });
       L.marker([stop.lat, stop.lon], {icon})
-        .bindPopup(`<b>T${tour.tour_num} · Arrêt ${si+1}</b><br><b>${stop.site}</b><br>${stop.address}<br>${stop.ville}`)
+        .bindPopup(`<b>T${tour.tour_num}  Arrt ${si+1}</b><br><b>${stop.site}</b><br>${stop.address}<br>${stop.ville}`)
         .addTo(markerLayer);
       bounds.push([stop.lat, stop.lon]);
     });
@@ -2054,7 +2054,7 @@ function filterMap(filter) {
   if (currentResult) drawMap(currentResult);
 }
 
-// ── UTILS ─────────────────────────────────────────────────────
+//  UTILS 
 function showAlert(msg, type, containerId) {
   const alertId = containerId || 'results-alerts';
   const el = document.getElementById(alertId);
@@ -2101,7 +2101,7 @@ async function downloadExcel() {
     a.download = `tournees_${new Date().toISOString().slice(0,10)}.xlsx`;
     document.body.appendChild(a); a.click();
     document.body.removeChild(a); URL.revokeObjectURL(url);
-    showAlert('Excel téléchargé!', 'ok');
+    showAlert('Excel tlcharg!', 'ok');
   } catch (e) { showAlert('Erreur: ' + e.message, 'err'); }
 }
 
