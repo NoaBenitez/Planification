@@ -52,7 +52,7 @@ NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 OSRM_TABLE    = "https://router.project-osrm.org/table/v1"
 GEOCODE_DELAY = 1.1
 CHUNK_SIZE    = 50
-USER_AGENT    = "VRPOptimizer/4.0 contact@monentreprise.com"
+USER_AGENT    = "VRPOptimizer/4.0 nbenitez@psl.fr"
 GROQ_API_URL  = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_API_KEY  = os.environ.get("GROQ_API_KEY", "")
 # Models gratuits Groq: llama-3.3-70b-versatile, gemma2-9b-it, mixtral-8x7b-32768
