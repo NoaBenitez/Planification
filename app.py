@@ -48,11 +48,12 @@ log = logging.getLogger(__name__)
 # ─────────────────────────────────────────────────────────────────
 # CONSTANTES & CONFIG
 # ─────────────────────────────────────────────────────────────────
+BAN_API_URL   = "https://api-adresse.data.gouv.fr/search/"
 NOMINATIM_URL = "https://nominatim.openstreetmap.org/search"
 OSRM_TABLE    = "https://router.project-osrm.org/table/v1"
 GEOCODE_DELAY = 1.1
 CHUNK_SIZE    = 50
-USER_AGENT    = "VRPOptimizer/4.0 nbenitez@psl.fr"
+USER_AGENT    = "VRPOptimizer/4.0 contact@monentreprise.com"
 GROQ_API_URL  = "https://api.groq.com/openai/v1/chat/completions"
 GROQ_API_KEY  = os.environ.get("GROQ_API_KEY", "")
 # Models gratuits Groq: llama-3.3-70b-versatile, gemma2-9b-it, mixtral-8x7b-32768
@@ -412,10 +413,39 @@ DEPT_CENTERS = {
 # Cache geocodage en memoire (cle = adresse normalisee, valeur = resultat)
 _geocode_cache: dict = {}
 
-def _try_geocode(address, timeout=5):  #  Reduit de 10s a 5s
+def _try_geocode_ban(address, timeout=10):
     """
-    Tente de geocoder une adresse via Nominatim
-    Retourne None si echoue
+    Geocode via API BAN (Base Adresse Nationale).
+    Gratuit, sans rate limit, optimise pour les adresses francaises.
+    """
+    try:
+        r = SESSION.get(BAN_API_URL, params={
+            "q": address,
+            "limit": 1,
+        }, timeout=timeout)
+        r.raise_for_status()
+        data = r.json()
+        features = data.get("features", [])
+        if features:
+            coords = features[0]["geometry"]["coordinates"]
+            props = features[0]["properties"]
+            score = props.get("score", 0)
+            if score < 0.3:
+                return None
+            return {
+                "lat": coords[1],
+                "lon": coords[0],
+                "display_name": props.get("label", ""),
+                "score": score,
+            }
+        return None
+    except Exception:
+        return None
+
+
+def _try_geocode(address, timeout=5):
+    """
+    Tente de geocoder une adresse via Nominatim (fallback).
     """
     try:
         r = SESSION.get(NOMINATIM_URL, params={
@@ -427,7 +457,7 @@ def _try_geocode(address, timeout=5):  #  Reduit de 10s a 5s
         }, timeout=timeout)
         r.raise_for_status()
         data = r.json()
-        
+
         if data and len(data) > 0:
             return {
                 "lat": float(data[0]["lat"]),
@@ -479,22 +509,28 @@ def _geocode_one(address, raw_address=None):
         f"{code_postal} {ville}".strip() if code_postal and ville else None,  # Strategie 2: CP + ville
         ville if ville else None,  # Strategie 3: Juste ville
     ]
-    
+
     # Filtrer les strategies None/vides
     strategies = [s for s in strategies if s and len(s) > 2]
-    
-    # Essayer chaque strategie
+
+    # --- API BAN (Base Adresse Nationale) : rapide, sans rate limit ---
     for i, strategy in enumerate(strategies):
-        log.debug(f"🔎 Tentative {i+1}/{len(strategies)}: {strategy[:40]}")
-        result = _try_geocode(strategy, timeout=3)  # Reduit a 3s
+        result = _try_geocode_ban(strategy)
         if result:
-            log.info(f"✅ Trouve (strat {i}): {strategy[:40]}  {result['lat']:.4f}, {result['lon']:.4f}")
+            log.info(f"✅ BAN trouve (strat {i}): {strategy[:40]}  {result['lat']:.4f}, {result['lon']:.4f}")
             _geocode_cache[address] = result
             return result
 
-        # Delai Nominatim entre strategies
+    # --- Fallback Nominatim (avec rate limit 1 req/s) ---
+    for i, strategy in enumerate(strategies):
+        result = _try_geocode(strategy, timeout=5)
+        if result:
+            log.info(f"✅ Nominatim trouve (strat {i}): {strategy[:40]}  {result['lat']:.4f}, {result['lon']:.4f}")
+            _geocode_cache[address] = result
+            return result
         if i < len(strategies) - 1:
             time.sleep(GEOCODE_DELAY)
+
     if dept_code and dept_code in DEPT_CENTERS:
         lat, lon = DEPT_CENTERS[dept_code]
         log.warning(f"  Fallback departement {dept_code}: {address[:40]}  {lat:.4f}, {lon:.4f}")
@@ -628,9 +664,9 @@ def geocode_with_validation(raw_rows, session_id, progress_callback=None):
             results["success"].append(row_dict)
             results["geocoded"] += 1
 
-        # Delai Nominatim uniquement si une vraie requete HTTP a ete faite
-        if not cache_hit:
-            time.sleep(GEOCODE_DELAY)  # 1.1s respecte la limite 1 req/sec Nominatim
+        # Delai Nominatim uniquement si Nominatim a ete utilise (pas BAN, pas cache)
+        if not cache_hit and not geo_result.get("score"):
+            time.sleep(GEOCODE_DELAY)
 
         # Progression temps-reel
         if progress_callback:
