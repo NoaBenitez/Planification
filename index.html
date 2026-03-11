@@ -3,121 +3,137 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>VRP Optimizer Pro</title>
-<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<title>PSL - Plannification</title>
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 :root{
-  --p:#ff6b35;--pd:#d94d1f;--s:#f7931e;--a:#fbbf24;
+  --p:hsl(0,72%,51%);--pd:hsl(0,72%,40%);--s:hsl(0,60%,58%);--a:hsl(0,80%,65%);
   --ok:#10b981;--err:#ef4444;--warn:#f59e0b;--info:#3b82f6;
-  --bg:#0f0f0f;--card:#1a1a1a;--inp:#252525;
-  --fg:#ffffff;--muted:#a0a0a0;--brd:#333333;
-  --glass:rgba(255,255,255,0.05);
+  --bg:#09090b;--card:rgba(24,24,27,0.8);--inp:#18181b;
+  --fg:#fafafa;--muted:#a1a1aa;--brd:rgba(255,255,255,0.08);
+  --glass:rgba(255,255,255,0.03);
+  --glow:0 0 20px rgba(220,38,38,0.15);
+  --radius:10px;
 }
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--fg);
+body{font-family:'Inter',system-ui,sans-serif;background:var(--bg);color:var(--fg);
   min-height:100vh;
   background-image:
-    radial-gradient(circle at 20% 50%, rgba(255,107,53,0.08) 0%, transparent 50%),
-    radial-gradient(circle at 80% 20%, rgba(59,130,246,0.08) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 50%, rgba(220,38,38,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(220,38,38,0.04) 0%, transparent 60%);
 }
 
 /*  LAYOUT DASHBOARD  */
-.dashboard{display:grid;grid-template-columns:280px 1fr;min-height:100vh}
-.sidebar{background:var(--card);border-right:1px solid var(--brd);padding:1.5rem}
-.main-content{padding:2rem;overflow-y:auto;height:100vh}
+.dashboard{display:flex;min-height:100vh}
+.sidebar{background:linear-gradient(180deg,#0c0c0e 0%,#1a0a0a 100%);
+  border-right:1px solid var(--brd);padding:1.25rem;display:flex;flex-direction:column;
+  position:fixed;top:0;left:0;bottom:0;width:220px;z-index:100;overflow-y:auto}
+.main-content{padding:1.5rem 2rem;overflow-y:auto;height:100vh;margin-left:220px;
+  flex:1;width:calc(100% - 220px)}
 
 /*  HEADER  */
-.header{margin-bottom:2rem}
-.logo{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
-.logo-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--p),var(--s));
-  border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.5rem}
-.logo-text h1{font-size:1.5rem;font-weight:800;letter-spacing:-1px}
-.logo-text p{font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace}
+.header{margin-bottom:1.5rem}
+.logo{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;padding-bottom:1.25rem;
+  border-bottom:1px solid var(--brd)}
+.logo-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;
+  justify-content:center;overflow:hidden;flex-shrink:0}
+.logo-icon img{width:100%;height:100%;object-fit:contain}
+.logo-text h1{font-size:1.1rem;font-weight:800;letter-spacing:-0.5px;line-height:1.2}
+.logo-text p{font-size:0.65rem;color:var(--muted);font-family:'JetBrains Mono',monospace;
+  text-transform:uppercase;letter-spacing:1.5px}
 
 /*  NAVIGATION  */
-.nav{display:flex;flex-direction:column;gap:0.5rem}
+.nav{display:flex;flex-direction:column;gap:0.25rem;flex:1}
 .nav-item{
-  padding:1rem 1.2rem;background:transparent;border:none;color:var(--muted);
-  cursor:pointer;font-family:'Outfit',sans-serif;font-size:0.9rem;font-weight:600;
-  border-radius:10px;text-align:left;transition:all .2s;
-  display:flex;align-items:center;gap:0.8rem
+  padding:0.7rem 0.9rem;background:transparent;border:none;color:var(--muted);
+  cursor:pointer;font-family:'Inter',sans-serif;font-size:0.82rem;font-weight:500;
+  border-radius:var(--radius);text-align:left;transition:all .2s;
+  display:flex;align-items:center;gap:0.7rem
 }
-.nav-item:hover{background:var(--glass);color:var(--fg)}
-.nav-item.active{background:var(--p);color:#fff;box-shadow:0 4px 15px rgba(255,107,53,0.3)}
-.nav-item i{width:20px;text-align:center}
+.nav-item:hover{background:rgba(220,38,38,0.08);color:var(--fg)}
+.nav-item.active{background:var(--p);color:#fff;box-shadow:var(--glow)}
+.nav-item i{width:18px;text-align:center;font-size:0.85rem}
 
 /*  CONTENT SECTIONS  */
 .section{display:none}
-.section.active{display:block;animation:fadein .3s}
-@keyframes fadein{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.section.active{display:block;animation:fadein .35s ease-out}
+@keyframes fadein{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
 /*  CARDS  */
-.card{background:var(--card);border:1px solid var(--brd);border-radius:16px;
-  padding:1.5rem;margin-bottom:1.5rem;position:relative;overflow:hidden}
-.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;
-  background:linear-gradient(90deg,var(--p),var(--s))}
-.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.2rem}
-.card-title{font-size:1.2rem;font-weight:700;display:flex;align-items:center;gap:0.8rem}
-.card-icon{font-size:1.3rem}
+.card{background:var(--card);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+  border:1px solid var(--brd);border-radius:var(--radius);
+  padding:1.25rem;margin-bottom:1.25rem;position:relative;overflow:hidden;
+  transition:border-color .2s,box-shadow .2s}
+.card:hover{border-color:rgba(220,38,38,0.15);box-shadow:0 0 30px rgba(220,38,38,0.05)}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--p),transparent 80%);opacity:0.6}
+.card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.card-title{font-size:1rem;font-weight:700;display:flex;align-items:center;gap:0.6rem}
+.card-icon{font-size:1.1rem;color:var(--p)}
 
 /*  STEPS  */
-.steps{display:flex;align-items:center;gap:1rem;margin-bottom:2rem;padding:1rem;background:var(--card);
-  border-radius:12px;border:1px solid var(--brd)}
-.step{flex:1;display:flex;align-items:center;gap:0.8rem;padding:0.8rem;
-  border-radius:8px;transition:all .3s}
-.step.active{background:var(--glass);border:1px solid var(--p)}
-.step.completed{background:rgba(16,185,129,0.1);border:1px solid var(--ok)}
-.step-num{width:32px;height:32px;border-radius:50%;background:var(--inp);
+.steps{display:flex;align-items:center;gap:0.75rem;margin-bottom:1.5rem;padding:0.75rem;
+  background:var(--card);backdrop-filter:blur(12px);
+  border-radius:var(--radius);border:1px solid var(--brd)}
+.step{flex:1;display:flex;align-items:center;gap:0.6rem;padding:0.6rem 0.8rem;
+  border-radius:8px;transition:all .3s;border:1px solid transparent}
+.step.active{background:rgba(220,38,38,0.08);border-color:var(--p)}
+.step.completed{background:rgba(16,185,129,0.08);border-color:var(--ok)}
+.step-num{width:28px;height:28px;border-radius:50%;background:var(--inp);
   display:flex;align-items:center;justify-content:center;font-weight:700;
-  font-size:0.85rem;font-family:'Space Mono',monospace}
-.step.active .step-num{background:var(--p);color:#fff}
+  font-size:0.78rem;font-family:'JetBrains Mono',monospace;transition:all .3s}
+.step.active .step-num{background:var(--p);color:#fff;box-shadow:0 0 12px rgba(220,38,38,0.3)}
 .step.completed .step-num{background:var(--ok);color:#fff}
-.step-text{font-size:0.85rem;color:var(--muted)}
+.step-text{font-size:0.78rem;color:var(--muted);font-weight:500}
 .step.active .step-text{color:var(--fg)}
 
 /*  FORM  */
-.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem}
-.fg{display:flex;flex-direction:column;gap:0.5rem}
-label{font-weight:600;color:var(--muted);font-size:0.75rem;text-transform:uppercase;
-  letter-spacing:1px;font-family:'Space Mono',monospace}
+.form-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.fg{display:flex;flex-direction:column;gap:0.4rem}
+label{font-weight:600;color:var(--muted);font-size:0.68rem;text-transform:uppercase;
+  letter-spacing:1.2px;font-family:'JetBrains Mono',monospace}
 input,select,textarea{
-  padding:0.9rem 1rem;background:var(--inp);border:1px solid var(--brd);
-  color:var(--fg);font-size:0.9rem;font-family:'Space Mono',monospace;
+  padding:0.55rem 0.75rem;height:36px;background:var(--inp);border:1px solid var(--brd);
+  color:var(--fg);font-size:0.82rem;font-family:'Inter',sans-serif;
   border-radius:8px;transition:all .2s
 }
 input:focus,select:focus,textarea:focus{outline:none;border-color:var(--p);
-  box-shadow:0 0 0 3px rgba(255,107,53,0.1)}
-input[type=file]{cursor:pointer;font-family:'Outfit',sans-serif}
-.hint{font-size:0.7rem;color:var(--muted);font-family:'Space Mono',monospace}
+  box-shadow:0 0 0 3px rgba(220,38,38,0.1)}
+input[type=file]{cursor:pointer;font-family:'Inter',sans-serif;height:auto;padding:0.7rem}
+.hint{font-size:0.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
 
 /*  BUTTONS  */
-.btn-row{display:flex;gap:1rem;margin-top:1.5rem;flex-wrap:wrap}
+.btn-row{display:flex;gap:0.75rem;margin-top:1.25rem;flex-wrap:wrap}
 button{
-  padding:1rem 2rem;font-size:0.85rem;font-weight:700;border:none;
-  cursor:pointer;font-family:'Outfit',sans-serif;text-transform:uppercase;
-  letter-spacing:1px;transition:all .2s;border-radius:8px;display:inline-flex;
-  align-items:center;gap:0.6rem
+  padding:0.6rem 1.4rem;font-size:0.78rem;font-weight:600;border:none;
+  cursor:pointer;font-family:'Inter',sans-serif;text-transform:uppercase;
+  letter-spacing:0.8px;transition:all .2s;border-radius:8px;display:inline-flex;
+  align-items:center;gap:0.5rem
 }
 .btn-primary{background:var(--p);color:#fff}
-.btn-primary:hover{background:var(--pd);transform:translateY(-2px);
-  box-shadow:0 6px 20px rgba(255,107,53,0.3)}
+.btn-primary:hover{background:var(--pd);transform:translateY(-1px);
+  box-shadow:var(--glow)}
 .btn-secondary{background:var(--inp);color:var(--fg);border:1px solid var(--brd)}
-.btn-secondary:hover{background:var(--brd)}
+.btn-secondary:hover{background:rgba(255,255,255,0.06);border-color:rgba(255,255,255,0.15)}
 .btn-success{background:var(--ok);color:#fff}
-.btn-success:hover{background:#059669;box-shadow:0 6px 20px rgba(16,185,129,0.3)}
-.btn-sm{padding:0.6rem 1.2rem;font-size:0.75rem}
+.btn-success:hover{background:#059669;box-shadow:0 4px 16px rgba(16,185,129,0.25)}
+.btn-sm{padding:0.45rem 0.9rem;font-size:0.72rem}
 button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shadow:none!important}
 
 /*  STATS GRID  */
-.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:1rem;margin-bottom:1.5rem}
-.stat-card{background:var(--inp);border-radius:12px;padding:1.2rem;text-align:center;
-  border:1px solid var(--brd);position:relative;overflow:hidden}
-.stat-card::after{content:'';position:absolute;top:0;left:0;width:3px;height:100%;
-  background:linear-gradient(180deg,var(--p),var(--s))}
-.stat-value{font-size:2rem;font-weight:800;color:var(--p);font-family:'Space Mono',monospace}
-.stat-label{font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;margin-top:0.3rem}
+.stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:0.75rem;margin-bottom:1.25rem}
+.stat-card{background:var(--card);backdrop-filter:blur(12px);border-radius:var(--radius);
+  padding:1rem;text-align:center;border:1px solid var(--brd);position:relative;overflow:hidden;
+  transition:border-color .2s}
+.stat-card:hover{border-color:rgba(220,38,38,0.2)}
+.stat-card::after{content:'';position:absolute;top:0;left:0;width:2px;height:100%;
+  background:var(--p);opacity:0.6}
+.stat-value{font-size:1.8rem;font-weight:800;color:var(--p);font-family:'JetBrains Mono',monospace}
+.stat-label{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;
+  margin-top:0.2rem;font-family:'JetBrains Mono',monospace}
 
 /*  VALIDATION REDESIGN  */
 .val-banner{border-radius:14px;padding:1.2rem 1.5rem;display:flex;align-items:center;
@@ -137,11 +153,11 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .val-stat.s-err::before{background:var(--err)}
 .val-stat.s-warn::before{background:var(--warn)}
 .val-stat-icon{font-size:1.4rem;opacity:.7;flex-shrink:0}
-.val-stat-num{font-size:1.8rem;font-weight:800;font-family:'Space Mono',monospace;line-height:1}
+.val-stat-num{font-size:1.8rem;font-weight:800;font-family:'JetBrains Mono',monospace;line-height:1}
 .val-stat-lbl{font-size:0.68rem;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;margin-top:.2rem}
 /* Tabs */
 .val-tabs{display:flex;gap:0;border-bottom:1px solid var(--brd);margin:-1.5rem -1.5rem 1.5rem}
-.val-tab{padding:.9rem 1.4rem;background:none;border:none;font-family:'Outfit',sans-serif;
+.val-tab{padding:.9rem 1.4rem;background:none;border:none;font-family:'Inter',sans-serif;
   font-size:.85rem;font-weight:600;color:var(--muted);cursor:pointer;position:relative;
   transition:color .2s;letter-spacing:.2px;border-radius:0;text-transform:none;
   display:flex;align-items:center;gap:.5rem}
@@ -149,7 +165,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .val-tab.active{color:var(--fg)}
 .val-tab.active::after{content:'';position:absolute;bottom:-1px;left:0;right:0;height:2px;background:var(--p)}
 .val-tab-ct{padding:.15rem .5rem;border-radius:20px;font-size:.68rem;font-weight:700;
-  font-family:'Space Mono',monospace;min-width:20px;text-align:center}
+  font-family:'JetBrains Mono',monospace;min-width:20px;text-align:center}
 .val-tab-ct.c-err{background:rgba(239,68,68,.2);color:var(--err)}
 .val-tab-ct.c-warn{background:rgba(245,158,11,.2);color:var(--warn)}
 .val-tab-ct.c-ok{background:rgba(16,185,129,.2);color:var(--ok)}
@@ -163,7 +179,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .val-item.v-done{border-left:3px solid var(--ok);opacity:.6}
 .val-item-head{display:flex;align-items:flex-start;justify-content:space-between;gap:1rem;margin-bottom:.7rem}
 .val-item-name{font-weight:700;font-size:.95rem}
-.val-item-addr{font-size:.78rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:.15rem;
+.val-item-addr{font-size:.78rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:.15rem;
   max-width:400px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .val-item-tag{padding:.2rem .7rem;border-radius:20px;font-size:.7rem;font-weight:700;
   white-space:nowrap;flex-shrink:0}
@@ -177,7 +193,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .val-fix-box{background:rgba(0,0,0,.18);border-radius:10px;padding:.9rem 1rem;
   margin-top:.5rem;border:1px solid rgba(255,255,255,.06)}
 .val-fix-lbl{font-size:.68rem;text-transform:uppercase;letter-spacing:.8px;color:var(--muted);
-  margin-bottom:.4rem;font-family:'Space Mono',monospace;font-weight:700}
+  margin-bottom:.4rem;font-family:'JetBrains Mono',monospace;font-weight:700}
 .val-fix-divider{display:flex;align-items:center;gap:.7rem;margin:.65rem 0;
   color:var(--muted);font-size:.75rem}
 .val-fix-divider::before,.val-fix-divider::after{content:'';flex:1;height:1px;background:var(--brd)}
@@ -190,7 +206,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .val-ok-dot.exact{background:var(--ok)}
 .val-ok-dot.approx{background:var(--warn)}
 .val-ok-name{font-weight:600;font-size:.82rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.val-ok-meta{font-size:.68rem;color:var(--muted);font-family:'Space Mono',monospace;margin-top:.1rem}
+.val-ok-meta{font-size:.68rem;color:var(--muted);font-family:'JetBrains Mono',monospace;margin-top:.1rem}
 /* empty state */
 .val-empty{text-align:center;padding:3rem 1rem;color:var(--muted)}
 .val-empty-icon{font-size:2.8rem;margin-bottom:.8rem}
@@ -203,35 +219,35 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   background:var(--tour-color, var(--p))}
 .tour-header{display:flex;justify-content:space-between;align-items:center;
   margin-bottom:1rem;padding-bottom:1rem;border-bottom:1px solid var(--brd)}
-.tour-number{font-size:1.3rem;font-weight:800;font-family:'Space Mono',monospace;
+.tour-number{font-size:1.3rem;font-weight:800;font-family:'JetBrains Mono',monospace;
   color:var(--tour-color, var(--p))}
-.tour-meta{display:flex;gap:1rem;font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace}
+.tour-meta{display:flex;gap:1rem;font-size:0.8rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
 .tour-stops{list-style:none}
 .tour-stop{display:flex;align-items:center;gap:0.8rem;padding:0.6rem;margin-bottom:0.5rem;
   background:var(--card);border-radius:8px;border-left:3px solid var(--tour-color, var(--p))}
 .stop-num{width:28px;height:28px;border-radius:50%;background:var(--tour-color, var(--p));
   display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.8rem;
-  font-family:'Space Mono',monospace;color:#fff;flex-shrink:0}
+  font-family:'JetBrains Mono',monospace;color:#fff;flex-shrink:0}
 .stop-info{flex:1}
 .stop-site{font-weight:600;font-size:0.9rem}
-.stop-addr{font-size:0.75rem;color:var(--muted);font-family:'Space Mono',monospace}
+.stop-addr{font-size:0.75rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
 
 /*  MAP  */
 #map{height:500px;width:100%;border-radius:12px;border:1px solid var(--brd)}
 .map-controls{display:flex;gap:0.8rem;margin-bottom:1rem;flex-wrap:wrap}
 .filter-btn{padding:0.5rem 1rem;background:var(--inp);border:1px solid var(--brd);
   border-radius:20px;font-size:0.8rem;color:var(--muted);cursor:pointer;
-  transition:all .2s;font-family:'Space Mono',monospace}
+  transition:all .2s;font-family:'JetBrains Mono',monospace}
 .filter-btn:hover{border-color:var(--p);color:var(--fg)}
 .filter-btn.active{background:var(--p);color:#fff;border-color:var(--p)}
 
 /*  AI ANALYSIS  */
-.ai-analysis{background:linear-gradient(135deg,rgba(59,130,246,0.1),rgba(147,51,234,0.1));
-  border:1px solid rgba(59,130,246,0.3);border-radius:12px;padding:1.5rem}
-.ai-header{display:flex;align-items:center;gap:0.8rem;margin-bottom:1rem}
-.ai-icon{font-size:1.5rem;background:linear-gradient(135deg,#3b82f6,#9333ea);
-  -webkit-background-clip:text;-webkit-text-fill-color:transparent}
-.ai-title{font-size:1.1rem;font-weight:700}
+.ai-analysis{background:linear-gradient(135deg,rgba(220,38,38,0.06),rgba(220,38,38,0.02));
+  border:1px solid rgba(220,38,38,0.2);border-radius:var(--radius);padding:1.25rem;
+  backdrop-filter:blur(12px)}
+.ai-header{display:flex;align-items:center;gap:0.7rem;margin-bottom:0.8rem}
+.ai-icon{font-size:1.3rem;color:var(--p)}
+.ai-title{font-size:1rem;font-weight:700}
 .ai-content{font-size:0.9rem;line-height:1.6;color:var(--muted)}
 .ai-section{margin-bottom:1rem}
 .ai-section-title{font-weight:600;color:var(--fg);margin-bottom:0.5rem;
@@ -252,20 +268,20 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .alert-icon{font-size:1.2rem}
 
 /*  LOADING OVERLAY  */
-#overlay{position:fixed;inset:0;background:rgba(15,15,15,0.95);
+#overlay{position:fixed;inset:0;background:rgba(9,9,11,0.96);backdrop-filter:blur(8px);
   display:none;align-items:center;justify-content:center;z-index:9999}
 #overlay.show{display:flex}
 .loading-box{text-align:center}
-.spinner{width:60px;height:60px;border:3px solid var(--brd);border-top-color:var(--p);
-  border-radius:50%;animation:spin 1s linear infinite;margin:0 auto 1.5rem}
+.spinner{width:48px;height:48px;border:2px solid var(--brd);border-top-color:var(--p);
+  border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 1.2rem}
 @keyframes spin{to{transform:rotate(360deg)}}
-.loading-title{font-size:1.3rem;font-weight:800;text-transform:uppercase;
-  letter-spacing:2px;margin-bottom:0.5rem}
-.loading-status{color:var(--muted);font-family:'Space Mono',monospace;font-size:0.85rem}
-.progress-bar{width:300px;height:6px;background:var(--brd);border-radius:3px;
-  margin:1.5rem auto;overflow:hidden;position:relative}
+.loading-title{font-size:1.1rem;font-weight:700;text-transform:uppercase;
+  letter-spacing:2px;margin-bottom:0.4rem;color:var(--fg)}
+.loading-status{color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:0.78rem}
+.progress-bar{width:280px;height:4px;background:var(--brd);border-radius:2px;
+  margin:1.2rem auto;overflow:hidden;position:relative}
 .progress-fill{height:100%;background:linear-gradient(90deg,var(--p),var(--s));
-  width:0%;transition:width 0.4s ease;border-radius:3px}
+  width:0%;transition:width 0.4s ease;border-radius:2px}
 .progress-fill.indeterminate{width:40%!important;animation:progress-slide 1.4s ease-in-out infinite}
 @keyframes progress-slide{
   0%{transform:translateX(-100%)}
@@ -283,7 +299,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .col-field-label{font-weight:600;font-size:0.88rem}
 .col-field-badges{display:flex;gap:0.4rem;margin-top:0.35rem;flex-wrap:wrap}
 .col-badge{padding:0.15rem 0.55rem;border-radius:20px;font-size:0.65rem;font-weight:700;
-  font-family:'Space Mono',monospace;letter-spacing:.3px}
+  font-family:'JetBrains Mono',monospace;letter-spacing:.3px}
 .col-badge-req{background:rgba(239,68,68,0.15);color:var(--err)}
 .col-badge-opt{background:rgba(163,163,163,0.12);color:var(--muted)}
 .col-badge-auto{background:rgba(16,185,129,0.15);color:var(--ok)}
@@ -291,7 +307,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 /* preview table */
 .col-preview-wrap{overflow-x:auto;max-height:230px;border-radius:10px;border:1px solid var(--brd);
   margin-top:1.2rem}
-.col-preview-tbl{width:100%;border-collapse:collapse;font-size:0.76rem;font-family:'Space Mono',monospace;
+.col-preview-tbl{width:100%;border-collapse:collapse;font-size:0.76rem;font-family:'JetBrains Mono',monospace;
   white-space:nowrap}
 .col-preview-tbl th{padding:0.55rem 1rem;background:var(--inp);color:var(--muted);font-weight:600;
   border-bottom:1px solid var(--brd);text-align:left;position:sticky;top:0}
@@ -305,7 +321,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .col-confirmed-chip{display:flex;align-items:center;gap:0.5rem;padding:0.5rem 0.9rem;
   background:var(--inp);border-radius:8px;font-size:0.8rem;border:1px solid var(--brd)}
 .col-chip-icon{color:var(--ok);font-size:0.85rem}
-.col-chip-field{color:var(--muted);font-size:0.7rem;font-family:'Space Mono',monospace}
+.col-chip-field{color:var(--muted);font-size:0.7rem;font-family:'JetBrains Mono',monospace}
 .col-chip-col{font-weight:700;color:var(--fg)}
 /* mapper summary bar */
 .col-mapper-summary{display:flex;align-items:center;gap:1rem;font-size:0.82rem;
@@ -315,46 +331,53 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .input-with-btn{display:flex;gap:0.5rem;align-items:stretch}
 .input-with-btn input{flex:1;min-width:0}
 .btn-auto{
-  padding:0 1.1rem;background:linear-gradient(135deg,var(--info),#6366f1);
-  color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.78rem;
-  font-weight:700;font-family:'Outfit',sans-serif;letter-spacing:.5px;
+  padding:0 1rem;background:var(--p);
+  color:#fff;border:none;border-radius:8px;cursor:pointer;font-size:0.72rem;
+  font-weight:600;font-family:'Inter',sans-serif;letter-spacing:.5px;
   white-space:nowrap;transition:all .2s;display:flex;align-items:center;gap:0.4rem;
 }
 .btn-auto:hover{filter:brightness(1.15);transform:translateY(-1px);
-  box-shadow:0 4px 14px rgba(59,130,246,0.4)}
+  box-shadow:var(--glow)}
 .btn-auto:disabled{opacity:.5;cursor:not-allowed;transform:none;filter:none}
 .btn-auto .spin{animation:spin .8s linear infinite;display:inline-block}
 .auto-result{
-  margin-top:.5rem;padding:.6rem .9rem;border-radius:8px;font-size:.75rem;
-  background:rgba(59,130,246,.1);border:1px solid rgba(59,130,246,.3);
+  margin-top:.5rem;padding:.6rem .9rem;border-radius:8px;font-size:.72rem;
+  background:rgba(220,38,38,.06);border:1px solid rgba(220,38,38,.2);
   color:var(--fg);line-height:1.5;display:none
 }
 .auto-result.visible{display:block}
-.auto-result strong{color:var(--info)}
+.auto-result strong{color:var(--p)}
 
-::-webkit-scrollbar{width:8px;height:8px}
-::-webkit-scrollbar-track{background:var(--bg)}
-::-webkit-scrollbar-thumb{background:var(--brd);border-radius:4px}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.08);border-radius:3px}
 ::-webkit-scrollbar-thumb:hover{background:var(--p)}
+
+/* GLOW ANIMATION */
+@keyframes glow-pulse{
+  0%,100%{box-shadow:0 0 15px rgba(220,38,38,0.1)}
+  50%{box-shadow:0 0 25px rgba(220,38,38,0.2)}
+}
+.card:focus-within{animation:glow-pulse 2s ease-in-out infinite}
 
 /*  RESPONSIVE  */
 @media(max-width:1024px){
   .dashboard{grid-template-columns:1fr}
   .sidebar{display:none}
-  .main-content{padding:1rem}
+  .main-content{padding:1rem;margin-left:0}
 }
 
 /*  EDIT MODE  */
 .edit-mode .tour-stop{cursor:grab;transition:all .2s}
-.edit-mode .tour-stop:hover{background:rgba(255,107,53,0.15);border-color:var(--p)}
+.edit-mode .tour-stop:hover{background:rgba(220,38,38,0.12);border-color:var(--p)}
 .tour-stop.dragging{opacity:.5;cursor:grabbing}
 .tour-stop.drag-over{border-top:3px solid var(--p)}
 .edit-toolbar{display:none;align-items:center;gap:1rem;margin-bottom:1rem;
-  padding:0.8rem 1rem;background:rgba(255,107,53,0.1);border-radius:10px;
-  border:1px solid rgba(255,107,53,0.3)}
+  padding:0.8rem 1rem;background:rgba(220,38,38,0.1);border-radius:10px;
+  border:1px solid rgba(220,38,38,0.25)}
 .edit-toolbar.visible{display:flex}
 .badge{padding:0.25rem 0.6rem;border-radius:20px;font-size:0.7rem;font-weight:700;
-  font-family:'Space Mono',monospace}
+  font-family:'JetBrains Mono',monospace}
 .badge-edited{background:rgba(245,158,11,0.2);color:var(--warn);border:1px solid rgba(245,158,11,0.4)}
 
 /*  TIME BAR  */
@@ -379,7 +402,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .tour-select-list{max-height:300px;overflow-y:auto;display:flex;flex-direction:column;gap:0.5rem}
 .tour-select-item{padding:0.8rem;background:var(--inp);border-radius:8px;cursor:pointer;
   border:1px solid var(--brd);transition:all .2s;font-size:0.85rem}
-.tour-select-item:hover{border-color:var(--p);background:rgba(255,107,53,0.1)}
+.tour-select-item:hover{border-color:var(--p);background:rgba(220,38,38,0.1)}
 
 /*  GANTT PLANNING  */
 .gantt-wrap{overflow-x:auto}
@@ -404,15 +427,17 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 .gantt-proposed-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,.08);border-radius:4px;padding:2px 7px;font-size:0.7rem;color:var(--fg);margin-left:6px;border:1px solid rgba(255,255,255,.12)}
 
 /*  AI SECTIONS  */
-.ai-section-block{margin-bottom:1.5rem;padding:1.2rem;background:rgba(0,0,0,0.2);
-  border-radius:10px;border-left:3px solid var(--p)}
-.ai-section-block h3{font-size:0.9rem;font-weight:700;color:var(--fg);margin-bottom:0.8rem;
+.ai-section-block{margin-bottom:1.25rem;padding:1rem;background:rgba(220,38,38,0.03);
+  border-radius:var(--radius);border-left:2px solid var(--p);backdrop-filter:blur(8px)}
+.ai-section-block h3{font-size:0.85rem;font-weight:700;color:var(--fg);margin-bottom:0.6rem;
   display:flex;align-items:center;gap:0.5rem}
-.ai-section-block p{font-size:0.85rem;line-height:1.7;color:var(--muted);white-space:pre-wrap}
-.ai-metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.8rem;margin-bottom:1.5rem}
-.ai-metric{background:rgba(0,0,0,0.2);border-radius:8px;padding:0.8rem;text-align:center}
-.ai-metric-val{font-size:1.4rem;font-weight:800;font-family:'Space Mono',monospace;color:var(--p)}
-.ai-metric-lbl{font-size:0.65rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px}
+.ai-section-block p{font-size:0.82rem;line-height:1.7;color:var(--muted);white-space:pre-wrap}
+.ai-metrics-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0.6rem;margin-bottom:1.25rem}
+.ai-metric{background:var(--card);backdrop-filter:blur(12px);border-radius:8px;padding:0.7rem;
+  text-align:center;border:1px solid var(--brd)}
+.ai-metric-val{font-size:1.3rem;font-weight:800;font-family:'JetBrains Mono',monospace;color:var(--p)}
+.ai-metric-lbl{font-size:0.6rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;
+  font-family:'JetBrains Mono',monospace}
 
 </style>
 </head>
@@ -421,10 +446,10 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
   <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="logo">
-      <div class="logo-icon"></div>
+      <div class="logo-icon"><img src="logopsl_-_blanc_fond_noir-removebg-preview.png" alt="PSL"></div>
       <div class="logo-text">
-        <h1>VRP Optimizer</h1>
-        <p>Pro Edition v4</p>
+        <h1>PSL Planning</h1>
+        <p>Optimisation</p>
       </div>
     </div>
     
@@ -450,12 +475,15 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
       <button class="nav-item" onclick="showSection('planning')">
         <i class="fas fa-calendar-alt"></i> Planning
       </button>
+      <button class="nav-item" onclick="showSection('costs')">
+        <i class="fas fa-euro-sign"></i> Couts
+      </button>
     </nav>
     
     <div style="margin-top:3rem;padding-top:2rem;border-top:1px solid var(--brd)">
       <div style="font-size:0.75rem;color:var(--muted);margin-bottom:0.5rem">Groq AI Status</div>
       <div id="groq-status" class="stat-status" style="padding:0.5rem;background:var(--inp);
-        border-radius:8px;font-size:0.8rem;font-family:'Space Mono',monospace">
+        border-radius:8px;font-size:0.8rem;font-family:'JetBrains Mono',monospace">
         <i class="fas fa-circle-notch fa-spin"></i> Vrification...
       </div>
     </div>
@@ -486,7 +514,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- UPLOAD SECTION -->
     <div id="section-upload" class="section active">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Import de donnes</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Import de donnes</h2>
         <p style="color:var(--muted)">Chargez votre fichier Excel  le mappage des colonnes s'adapte automatiquement</p>
       </div>
 
@@ -526,7 +554,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         <!-- spinner d'analyse -->
         <div id="col-mapper-loading" style="text-align:center;padding:2rem 1rem">
           <div class="spinner" style="width:36px;height:36px;margin:0 auto 1rem"></div>
-          <div style="color:var(--muted);font-size:0.85rem;font-family:'Space Mono',monospace">Analyse du fichier en cours</div>
+          <div style="color:var(--muted);font-size:0.85rem;font-family:'JetBrains Mono',monospace">Analyse du fichier en cours</div>
         </div>
 
         <!-- contenu mapper -->
@@ -542,7 +570,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
           <!-- Aperu des donnes -->
           <div style="margin-top:1.6rem">
             <div style="font-size:0.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:1px;
-              margin-bottom:0.6rem;font-family:'Space Mono',monospace">
+              margin-bottom:0.6rem;font-family:'JetBrains Mono',monospace">
               Aperu  5 premires lignes
               <span style="margin-left:0.5rem;color:var(--p)"> colonnes mappes surlignes</span>
             </div>
@@ -587,7 +615,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- VALIDATION SECTION -->
     <div id="section-validate" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Vrification des adresses</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Vrification des adresses</h2>
         <p style="color:var(--muted)">Rsultats du gocodage  corrigez les adresses non reconnues avant de continuer</p>
       </div>
 
@@ -617,7 +645,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- OPTIMIZE SECTION -->
     <div id="section-optimize" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Paramtres d'optimisation</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Paramtres d'optimisation</h2>
         <p style="color:var(--muted)">Configurez les paramtres pour l'optimisation des tournes</p>
       </div>
       
@@ -629,8 +657,8 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
                 <div class="form-grid">
           <div class="fg">
             <label> Dure MAX par tourne (heures)</label>
-            <input type="number" id="opt-maxh" value="7.0" min="0.5" max="24" step="0.5">
-            <span class="hint">Contrainte principale: trajet + temps de visite</span>
+            <input type="number" id="opt-maxh" value="8" min="0" max="24" step="0.5" placeholder="0 = max 16h">
+            <span class="hint">0 ou vide = plafond auto 16h (avec nuitee possible)</span>
           </div>
           <div class="fg">
             <label> Temps de calcul (secondes)</label>
@@ -677,7 +705,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- RESULTS SECTION -->
     <div id="section-results" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Rsultats d'optimisation</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Rsultats d'optimisation</h2>
         <p style="color:var(--muted)">Statistiques et dtails des tournes optimises</p>
       </div>
       
@@ -737,7 +765,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- MAP SECTION -->
     <div id="section-map" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Carte interactive</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Carte interactive</h2>
         <p style="color:var(--muted)">Visualisez les tournes optimises sur la carte</p>
       </div>
       
@@ -753,14 +781,14 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- PLANNING SECTION -->
     <div id="section-planning" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Planning annuel</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Planning annuel</h2>
         <p style="color:var(--muted)">Visualisation Gantt des tournes  dates calcules  partir des fentres de vos sites</p>
       </div>
 
       <div class="card">
         <div class="card-header">
           <div class="card-title"><i class="fas fa-calendar-alt card-icon"></i> Diagramme de Gantt</div>
-          <div id="gantt-date-range" style="font-size:0.8rem;color:var(--muted);font-family:'Space Mono',monospace"></div>
+          <div id="gantt-date-range" style="font-size:0.8rem;color:var(--muted);font-family:'JetBrains Mono',monospace"></div>
         </div>
 
         <!-- Lgende couleurs -->
@@ -788,7 +816,7 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
     <!-- AI SECTION -->
     <div id="section-ai" class="section">
       <div class="header">
-        <h2 style="font-size:2rem;font-weight:800;margin-bottom:0.5rem">Analyse IA</h2>
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Analyse IA</h2>
         <p style="color:var(--muted)">Commentaires et recommandations de l'intelligence artificielle</p>
       </div>
       
@@ -801,6 +829,71 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
         </div>
       </div>
     </div>
+
+    <!-- COSTS SECTION -->
+    <div id="section-costs" class="section">
+      <div class="header">
+        <h2 style="font-size:1.5rem;font-weight:800;margin-bottom:0.3rem;letter-spacing:-0.5px">Estimation des couts</h2>
+        <p style="color:var(--muted)">Carburant, peages et hebergement pour chaque tournee</p>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title"><i class="fas fa-gas-pump card-icon"></i> Parametres de couts</div>
+        </div>
+        <div class="form-grid">
+          <div class="fg">
+            <label>Consommation (L/100km)</label>
+            <input type="number" id="cost-consumption" value="7.5" min="1" max="30" step="0.1">
+          </div>
+          <div class="fg">
+            <label>Prix essence (EUR/L)</label>
+            <input type="number" id="cost-fuel-price" value="1.75" min="0.5" max="5" step="0.01">
+          </div>
+          <div class="fg">
+            <label>Prix peage moyen (EUR/100km)</label>
+            <input type="number" id="cost-toll" value="8.50" min="0" max="30" step="0.5">
+            <span class="hint">Estimation moyenne autoroute France</span>
+          </div>
+          <div class="fg">
+            <label>Prix nuitee hotel (EUR)</label>
+            <input type="number" id="cost-hotel" value="70" min="0" max="500" step="5">
+          </div>
+          <div class="fg">
+            <label>Heures max / jour (pour nuitees)</label>
+            <input type="number" id="cost-max-day-hours" value="8" min="1" max="24" step="0.5">
+            <span class="hint">Au-dela = nuitee(s) ajoutee(s)</span>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button class="btn-primary" onclick="calculateCosts()">
+            <i class="fas fa-calculator"></i> Calculer les couts
+          </button>
+        </div>
+      </div>
+
+      <div id="costs-empty" style="text-align:center;padding:3rem;color:var(--muted)">
+        <i class="fas fa-coins" style="font-size:3rem;margin-bottom:1rem;display:block"></i>
+        <p>Lancez d'abord une optimisation puis calculez les couts</p>
+      </div>
+
+      <!-- Resultats globaux -->
+      <div id="costs-results" style="display:none">
+        <div class="stats-grid" id="costs-stats"></div>
+
+        <!-- Detail par tournee -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title"><i class="fas fa-receipt card-icon"></i> Detail par tournee</div>
+            <button class="btn-sm btn-success" onclick="downloadCostsExcel()">
+              <i class="fas fa-download"></i> Export Excel
+            </button>
+          </div>
+          <div id="costs-detail"></div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </div>
 
@@ -839,8 +932,8 @@ button:disabled{opacity:.4;cursor:not-allowed;transform:none!important;box-shado
 <script>
 //  CONFIGURATION 
 const COLORS = [
-  '#ff6b35','#3b82f6','#10b981','#f59e0b','#8b5cf6',
-  '#ec4899','#06b6d4','#84cc16','#f97316','#a78bfa',
+  '#dc2626','#3b82f6','#10b981','#f59e0b','#8b5cf6',
+  '#ec4899','#06b6d4','#84cc16','#e11d48','#a78bfa',
 ];
 
 let map = null, markerLayer = null, routeLayer = null;
@@ -1340,7 +1433,7 @@ function _approxCard(item) {
     <div style="font-size:.8rem;color:var(--warn);margin-bottom:.4rem">
       <i class="fas fa-info-circle"></i> ${_v(item.message||'Coordonnes centrode de la ville')}
     </div>
-    ${item.normalized?`<div style="font-size:.73rem;color:var(--muted)">Adresse utilise : <span style="font-family:'Space Mono',monospace">${_v(item.normalized)}</span></div>`:''}
+    ${item.normalized?`<div style="font-size:.73rem;color:var(--muted)">Adresse utilise : <span style="font-family:'JetBrains Mono',monospace">${_v(item.normalized)}</span></div>`:''}
   </div>`;
 }
 
@@ -1468,7 +1561,7 @@ async function runOptimization() {
     progress_id:    pid,
     depot_site:     document.getElementById('upload-depot').value.trim(),
     profil:         document.getElementById('upload-profil').value,
-    max_tour_hours: parseFloat(document.getElementById('opt-maxh').value),
+    max_tour_hours: parseFloat(document.getElementById('opt-maxh').value) || 0,
     solver_time:    parseInt(document.getElementById('opt-time').value),
     split_size:     Math.max(2, parseInt(document.getElementById('opt-split').value) || 2),
     split_mode:     splitMode,
@@ -1832,7 +1925,7 @@ function renderGantt(tours) {
   // En-tte des mois
   const monthsHtml = `<div class="gantt-months-bar">${
     months.map(m => `<div style="position:absolute;left:${pct(m)}%;transform:translateX(-50%);
-      font-size:0.68rem;font-family:'Space Mono',monospace;color:var(--muted);white-space:nowrap;top:4px">
+      font-size:0.68rem;font-family:'JetBrains Mono',monospace;color:var(--muted);white-space:nowrap;top:4px">
       ${m.toLocaleDateString('fr-FR',{month:'short',year:'2-digit'})}</div>`).join('')
   }</div>`;
 
@@ -2126,6 +2219,174 @@ function resetAll() {
   const proc = document.getElementById('btn-proceed');
   if (proc) { proc.disabled = true; proc.innerHTML = '<i class="fas fa-cogs"></i> Continuer vers l\'optimisation'; }
   document.getElementById('issues-card').style.display = 'none';
+}
+
+// ============ COSTS ESTIMATION ============
+function calculateCosts() {
+  const data = editedTours ? {...currentResult, tours: editedTours} : currentResult;
+  if (!data || !data.tours || data.tours.length === 0) {
+    showAlert('Lancez d\'abord une optimisation', 'err');
+    return;
+  }
+
+  const consumption = parseFloat(document.getElementById('cost-consumption').value) || 7.5;
+  const fuelPrice = parseFloat(document.getElementById('cost-fuel-price').value) || 1.75;
+  const tollPer100km = parseFloat(document.getElementById('cost-toll').value) || 8.5;
+  const hotelPrice = parseFloat(document.getElementById('cost-hotel').value) || 70;
+  const maxDayHours = parseFloat(document.getElementById('cost-max-day-hours').value) || 8;
+
+  let totalFuel = 0, totalToll = 0, totalHotel = 0, totalKm = 0, totalNights = 0;
+  const tourCosts = [];
+
+  data.tours.forEach((tour, idx) => {
+    const km = tour.total_distance_km || 0;
+    const hours = tour.total_time_hours || 0;
+
+    // Carburant
+    const fuel = (km / 100) * consumption * fuelPrice;
+    // Peage
+    const toll = (km / 100) * tollPer100km;
+    // Nuitees : si la duree depasse maxDayHours
+    let nights = 0;
+    if (hours > maxDayHours) {
+      nights = Math.ceil(hours / maxDayHours) - 1;
+    }
+    const hotel = nights * hotelPrice;
+
+    const tourTotal = fuel + toll + hotel;
+
+    tourCosts.push({
+      idx: idx + 1,
+      km: km,
+      hours: hours,
+      fuel: fuel,
+      toll: toll,
+      nights: nights,
+      hotel: hotel,
+      total: tourTotal
+    });
+
+    totalFuel += fuel;
+    totalToll += toll;
+    totalHotel += hotel;
+    totalKm += km;
+    totalNights += nights;
+  });
+
+  const grandTotal = totalFuel + totalToll + totalHotel;
+
+  // Affichage stats globales
+  document.getElementById('costs-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${grandTotal.toFixed(0)} EUR</div><div class="stat-label">Cout total</div></div>
+    <div class="stat-card"><div class="stat-value">${totalFuel.toFixed(0)} EUR</div><div class="stat-label">Carburant</div></div>
+    <div class="stat-card"><div class="stat-value">${totalToll.toFixed(0)} EUR</div><div class="stat-label">Peages</div></div>
+    <div class="stat-card"><div class="stat-value">${totalHotel.toFixed(0)} EUR</div><div class="stat-label">Hotel (${totalNights} nuit${totalNights > 1 ? 's' : ''})</div></div>
+    <div class="stat-card"><div class="stat-value">${totalKm.toFixed(0)} km</div><div class="stat-label">Distance totale</div></div>
+    <div class="stat-card"><div class="stat-value">${data.tours.length}</div><div class="stat-label">Tournees</div></div>
+  `;
+
+  // Detail par tournee
+  let detailHTML = '<div style="overflow-x:auto"><table style="width:100%;border-collapse:collapse;font-size:0.78rem;font-family:\'JetBrains Mono\',monospace">';
+  detailHTML += '<thead><tr style="border-bottom:1px solid var(--brd);color:var(--muted);text-align:left">';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Tournee</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Km</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Duree</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Carburant</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Peage</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Nuitees</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem">Hotel</th>';
+  detailHTML += '<th style="padding:0.6rem 0.8rem;color:var(--p);font-weight:700">Total</th>';
+  detailHTML += '</tr></thead><tbody>';
+
+  tourCosts.forEach(tc => {
+    detailHTML += `<tr style="border-bottom:1px solid var(--brd)">`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem;font-weight:600;color:var(--p)">T${tc.idx}</td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem">${tc.km.toFixed(1)}</td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem">${tc.hours.toFixed(1)}h</td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem">${tc.fuel.toFixed(2)} EUR</td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem">${tc.toll.toFixed(2)} EUR</td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem">
+      <input type="number" value="${tc.nights}" min="0" max="30" style="width:50px;padding:2px 6px;height:28px;text-align:center"
+        onchange="updateTourNights(${tc.idx - 1}, this.value)" data-tour-idx="${tc.idx - 1}">
+    </td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem">${tc.hotel.toFixed(2)} EUR</td>`;
+    detailHTML += `<td style="padding:0.5rem 0.8rem;font-weight:700;color:var(--p)">${tc.total.toFixed(2)} EUR</td>`;
+    detailHTML += `</tr>`;
+  });
+
+  detailHTML += '</tbody></table></div>';
+  document.getElementById('costs-detail').innerHTML = detailHTML;
+
+  document.getElementById('costs-empty').style.display = 'none';
+  document.getElementById('costs-results').style.display = 'block';
+
+  // Stocker pour export et recalcul
+  window._costData = { tourCosts, consumption, fuelPrice, tollPer100km, hotelPrice, maxDayHours };
+}
+
+function updateTourNights(tourIdx, newNights) {
+  if (!window._costData) return;
+  const cd = window._costData;
+  const tc = cd.tourCosts[tourIdx];
+  if (!tc) return;
+
+  tc.nights = parseInt(newNights) || 0;
+  tc.hotel = tc.nights * cd.hotelPrice;
+  tc.total = tc.fuel + tc.toll + tc.hotel;
+
+  // Recalculer totaux
+  let totalFuel = 0, totalToll = 0, totalHotel = 0, totalKm = 0, totalNights = 0;
+  cd.tourCosts.forEach(t => {
+    totalFuel += t.fuel;
+    totalToll += t.toll;
+    totalHotel += t.hotel;
+    totalKm += t.km;
+    totalNights += t.nights;
+  });
+  const grandTotal = totalFuel + totalToll + totalHotel;
+
+  document.getElementById('costs-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-value">${grandTotal.toFixed(0)} EUR</div><div class="stat-label">Cout total</div></div>
+    <div class="stat-card"><div class="stat-value">${totalFuel.toFixed(0)} EUR</div><div class="stat-label">Carburant</div></div>
+    <div class="stat-card"><div class="stat-value">${totalToll.toFixed(0)} EUR</div><div class="stat-label">Peages</div></div>
+    <div class="stat-card"><div class="stat-value">${totalHotel.toFixed(0)} EUR</div><div class="stat-label">Hotel (${totalNights} nuit${totalNights > 1 ? 's' : ''})</div></div>
+    <div class="stat-card"><div class="stat-value">${totalKm.toFixed(0)} km</div><div class="stat-label">Distance totale</div></div>
+    <div class="stat-card"><div class="stat-value">${cd.tourCosts.length}</div><div class="stat-label">Tournees</div></div>
+  `;
+
+  // Mettre a jour la ligne du tableau
+  const row = document.querySelector(`[data-tour-idx="${tourIdx}"]`).closest('tr');
+  if (row) {
+    const cells = row.querySelectorAll('td');
+    cells[6].textContent = tc.hotel.toFixed(2) + ' EUR';
+    cells[7].textContent = tc.total.toFixed(2) + ' EUR';
+    cells[7].style.color = 'var(--p)';
+    cells[7].style.fontWeight = '700';
+  }
+}
+
+function downloadCostsExcel() {
+  if (!window._costData) { showAlert('Calculez les couts d\'abord', 'err'); return; }
+  const cd = window._costData;
+  // Generer un CSV telechargeable
+  let csv = 'Tournee;Km;Duree (h);Carburant (EUR);Peage (EUR);Nuitees;Hotel (EUR);Total (EUR)\n';
+  cd.tourCosts.forEach(tc => {
+    csv += `T${tc.idx};${tc.km.toFixed(1)};${tc.hours.toFixed(1)};${tc.fuel.toFixed(2)};${tc.toll.toFixed(2)};${tc.nights};${tc.hotel.toFixed(2)};${tc.total.toFixed(2)}\n`;
+  });
+  const totals = cd.tourCosts.reduce((acc, t) => ({
+    km: acc.km + t.km, fuel: acc.fuel + t.fuel, toll: acc.toll + t.toll,
+    nights: acc.nights + t.nights, hotel: acc.hotel + t.hotel, total: acc.total + t.total
+  }), {km:0, fuel:0, toll:0, nights:0, hotel:0, total:0});
+  csv += `TOTAL;${totals.km.toFixed(1)};;${totals.fuel.toFixed(2)};${totals.toll.toFixed(2)};${totals.nights};${totals.hotel.toFixed(2)};${totals.total.toFixed(2)}\n`;
+
+  const blob = new Blob(['\ufeff' + csv], {type: 'text/csv;charset=utf-8'});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `couts_tournees_${new Date().toISOString().slice(0,10)}.csv`;
+  document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+  showAlert('Export CSV telecharge!', 'ok');
 }
 
 </script>

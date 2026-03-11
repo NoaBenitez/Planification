@@ -1165,10 +1165,32 @@ def run_vrp_robust(time_m, depot_idx, max_hours, solver_time_s, sites, max_s=144
         augmented_time_matrix.append(row)
     
     # Estimer le nombre de vehicules necessaires
-    # Somme des temps de visite / temps max par vehicule
+    # On prend en compte le temps de visite ET le temps de trajet moyen
     total_visit_time = sum(visit_times)
-    estimated_vehicles = max(1, min(n-1, int(math.ceil(total_visit_time / max_time_seconds * 1.2))))
-    log.info(f"  🚚  Estimation vehicules: {estimated_vehicles}")
+    n_real_sites = max(1, n - 1)  # sans le depot
+    # Temps moyen aller-retour depot par tournee
+    avg_depot_rt = 0
+    for i in range(n):
+        if i != depot_idx:
+            avg_depot_rt += time_m[depot_idx][i] + time_m[i][depot_idx]
+    avg_depot_rt = avg_depot_rt / n_real_sites if n_real_sites > 0 else 0
+    # Temps moyen inter-sites
+    avg_inter = 0
+    count_inter = 0
+    for i in range(n):
+        if i == depot_idx: continue
+        for j in range(n):
+            if j == depot_idx or j == i: continue
+            avg_inter += time_m[i][j]
+            count_inter += 1
+    avg_inter = avg_inter / count_inter if count_inter > 0 else 0
+    # Estimation: chaque tournee = aller-retour depot + X * (visite + inter-site)
+    avg_visit = total_visit_time / n_real_sites if n_real_sites > 0 else 1800
+    sites_per_vehicle = max(1, int((max_time_seconds - avg_depot_rt) / max(1, avg_visit + avg_inter)))
+    estimated_vehicles = max(1, min(n_real_sites, math.ceil(n_real_sites / max(1, sites_per_vehicle))))
+    # Ajouter une marge de 30% pour laisser de la flexibilite au solveur
+    estimated_vehicles = min(n_real_sites, int(estimated_vehicles * 1.3) + 1)
+    log.info(f"    Estimation vehicules: {estimated_vehicles} (avg {sites_per_vehicle} sites/vehicule)")
     
     data = {
         'time_matrix': augmented_time_matrix,
@@ -2095,9 +2117,12 @@ def smart_merge_routes(routes, sites, time_m, dist_m, depot_idx, min_sites, max_
 
 def full_pipeline_enhanced(filepath, params, session_id, progress_id=""):
     depot_name   = params["depot_site"]
-    max_hours    = float(params.get("max_tour_hours", 7.0))  # Nouveau parametre: duree max par tournee
+    _raw_max_h   = float(params.get("max_tour_hours") or 0)
+    # Si l'utilisateur ne met pas de contrainte (0), on plafonne a 16h max absolu
+    # (8h journee normale, 16h max avec nuitee)
+    max_hours    = _raw_max_h if _raw_max_h > 0 else 16.0
     solver_time  = params["solver_time"]
-    max_s        = int(max_hours * 3600)  # En secondes
+    max_s        = int(max_hours * 3600)
     split_size   = params["split_size"]
     split_mode   = str(params.get("split_mode", "manual")).strip().lower()
     if split_mode not in ("manual", "auto"):
@@ -2293,18 +2318,13 @@ def full_pipeline_enhanced(filepath, params, session_id, progress_id=""):
     log.info("=== 5/7 VRP OR-Tools (Base sur le temps) ===")
     _prog(70, "Optimisation des tournees (OR-Tools)...")
 
-    # Nouveau parametre: temps max par tournee en heures
-    max_tour_hours = float(params.get("max_tour_hours", 7.0))
-    log.info(f"  Contrainte: Max {max_tour_hours}h par tournee")
+    log.info(f"  Contrainte: Max {max_hours}h par tournee (user={_raw_max_h}h)")
 
     if split_mode == "auto":
-        # Mode auto : le VRP cre un seul grand parcours (TSP) sans contrainte
-        # de temps, puis split_long_tours_by_time le dcoupe en tournes
-        # de dure variable selon max_tour_hours + dure de visite.
-        log.info("   Mode auto : rsolution TSP (1 vhicule sans contrainte de temps)")
-        raw_routes = run_vrp_robust(time_m, depot_idx, 999, solver_time, sites)
+        log.info(f"   Mode auto : VRP multi-vehicules (max {max_hours}h/tournee)")
+        raw_routes = run_vrp_robust(time_m, depot_idx, max_hours, solver_time, sites)
     else:
-        raw_routes = run_vrp_robust(time_m, depot_idx, max_tour_hours, solver_time, sites)
+        raw_routes = run_vrp_robust(time_m, depot_idx, max_hours, solver_time, sites)
 
     if not raw_routes:
         raise RuntimeError("OR-Tools : aucune solution trouvee.")
@@ -2511,6 +2531,15 @@ def full_pipeline_enhanced(filepath, params, session_id, progress_id=""):
 @app.route("/")
 def index():
     return send_from_directory(".", "index.html")
+
+@app.route("/<path:filename>")
+def static_files(filename):
+    """Serve static files (logo, favicon, etc.) from the project directory."""
+    allowed_ext = {".png", ".ico", ".jpg", ".jpeg", ".svg", ".css", ".js"}
+    ext = os.path.splitext(filename)[1].lower()
+    if ext in allowed_ext:
+        return send_from_directory(".", filename)
+    return "Not found", 404
 
 @app.route("/api/upload-validate", methods=["POST"])
 def api_upload_validate():
@@ -2725,7 +2754,7 @@ def api_optimize():
 
             params = {
                 "depot_site":     request.form.get("depot_site",    "depot_ST_FOY"),
-                "max_tour_hours": float(request.form.get("max_tour_hours", 7.0)),
+                "max_tour_hours": float(request.form.get("max_tour_hours") or 0),
                 "solver_time":    int(request.form.get("solver_time",  45)),
                 "split_size":     int(request.form.get("split_size",   3)),
                 "split_mode":     request.form.get("split_mode", "manual"),
@@ -2743,7 +2772,7 @@ def api_optimize():
             session_id = data["session_id"]
             params = {
                 "depot_site":     data.get("depot_site",    "depot_ST_FOY"),
-                "max_tour_hours": float(data.get("max_tour_hours", 7.0)),
+                "max_tour_hours": float(data.get("max_tour_hours") or 0),
                 "solver_time":    int(data.get("solver_time",  45)),
                 "split_size":     int(data.get("split_size",   3)),
                 "split_mode":     data.get("split_mode", "manual"),
